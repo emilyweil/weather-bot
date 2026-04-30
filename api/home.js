@@ -20,7 +20,7 @@ export default function handler(req, res) {
       }
       html, body { height: 100%; background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
       .bg-wrap { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
-      .bg-image { position: absolute; top: 0; left: 0; height: 100%; width: auto; min-width: 200%; object-fit: cover; animation: pan 240s linear infinite; filter: saturate(0.85) brightness(0.72); }
+      .bg-image { position: absolute; top: 0; left: 0; height: 100%; width: auto; min-width: 200%; object-fit: cover; animation: pan 400s linear infinite; filter: saturate(0.85) brightness(0.72); }
       @keyframes pan { 0% { transform: translateX(0); } 50% { transform: translateX(-33%); } 100% { transform: translateX(0); } }
       .overlay { position: absolute; inset: 0; background: var(--overlay); }
       .page { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
