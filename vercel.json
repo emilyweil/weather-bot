@@ -1,5 +1,7 @@
 {
-  "rewrites": [
-    { "source": "/", "destination": "/api/home" }
-  ]
-}
+    "version": 2,
+    "framework": null,
+    "rewrites": [
+      { "source": "/", "destination": "/api/home" }
+    ]
+  }
