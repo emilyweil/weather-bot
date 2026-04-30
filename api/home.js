@@ -33,12 +33,12 @@ export default function handler(req, res) {
       .hero h1 { font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
       .hero-sub { font-size: 0.95rem; line-height: 1.8; color: var(--white-dim); max-width: 400px; margin-bottom: 3.5rem; letter-spacing: 0.01em; font-weight: 300; }
       .cta-group { display: flex; flex-direction: column; gap: 0.75rem; }
-      .cta-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-faint); font-weight: 300; }
+      .cta-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); font-weight: 400; }
       .cta-number { font-family: 'DM Sans', sans-serif; font-size: 2.2rem; font-weight: 200; letter-spacing: 0.04em; color: #ffffff; }
       .cta-instruction { font-size: 0.8rem; color: var(--white-dim); letter-spacing: 0.04em; margin-top: 0.25rem; font-weight: 300; }
       .how-section { border-top: 0.5px solid var(--white-faint); padding: 5rem 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
       .how-item { display: flex; flex-direction: column; gap: 1rem; }
-      .how-num { font-family: 'DM Sans', sans-serif; font-size: 2rem; font-weight: 200; color: var(--white-faint); line-height: 1; }
+      .how-num { font-family: 'DM Sans', sans-serif; font-size: 2rem; font-weight: 300; color: var(--white-dim); line-height: 1; }
       .how-title { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: #ffffff; font-weight: 400; }
       .how-desc { font-size: 0.85rem; line-height: 1.75; color: var(--white-dim); letter-spacing: 0.01em; font-weight: 300; }
       footer { border-top: 0.5px solid var(--white-faint); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
