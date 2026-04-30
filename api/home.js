@@ -75,7 +75,8 @@ body { min-height: 100vh; min-height: -webkit-fill-available; color: var(--white
         <div class="cta-group">
           <span class="cta-label">Text any city to</span>
           <span class="cta-number">+1 989 357 8490</span>
-          <span class="cta-instruction">Try sending &ldquo;New York&rdquo; or &ldquo;10001&rdquo;</span>
+         <span class="cta-instruction">Try sending &ldquo;New York&rdquo; or &ldquo;10001&rdquo;</span>
+<span class="cta-instruction">By texting, you agree to receive automated weather responses. Msg &amp; data rates may apply. Reply STOP to cancel.</span>
         </div>
       </section>
       <section class="how-section" id="how">
