@@ -69,7 +69,7 @@ export default function handler(req, res) {
       </nav>
       <section class="hero">
         <p class="hero-eyebrow">Instant weather &mdash; no app required</p>
-        <h1>The weather,<br />by text.</h1>
+        <h1>The weather,<br />by text</h1>
         <p class="hero-sub">Send any city or zip code to the number below. Get a real forecast back in seconds. Nothing to download. Nothing to sign up for.</p>
         <div class="cta-group">
           <span class="cta-label">Text any city to</span>
