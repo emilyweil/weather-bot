@@ -50,7 +50,7 @@ export default async function handler(req, res) {
   }
 
   await client.messages.create({
-    from: process.env.TWILIO_WHATSAPP_NUMBER,
+    from: process.env.TWILIO_SMS_NUMBER,
     to: sender,
     body: replyText,
   });
