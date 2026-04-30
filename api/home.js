@@ -95,7 +95,6 @@ export default function handler(req, res) {
         </div>
       </section>
       <footer>
-        <p>&copy; 2026 Weatherline</p>
         <div style="display:flex; gap: 2rem;">
           <a href="/api/privacy">Privacy</a>
           <a href="/api/terms">Terms</a>
