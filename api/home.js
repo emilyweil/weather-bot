@@ -4,7 +4,7 @@ const html = `
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weatherline — Weather by Text</title>
+  <title>Red Sky — Weather by Text</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
   <style>
@@ -91,7 +91,7 @@ const html = `
       <div class="checkbox-row">
         <input type="checkbox" id="consent" onchange="toggleSubmit()" />
         <label class="checkbox-label" for="consent">
-        By providing your phone number and checking this box, you agree to receive automated weather forecast text messages from Weatherline. Messages are only sent in response to your request — you will never receive a text unless you send one first. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+        By providing your phone number and checking this box, you agree to receive automated weather forecast text messages from Red Sky. Messages are only sent in response to your request — you will never receive a text unless you send one first. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
         </label>
       </div>
       <div class="form-message" id="formMessage"></div>
@@ -117,7 +117,7 @@ const html = `
           <div class="policy-text">
             <p>Last updated: May 2026</p>
             <h3>Service Description</h3>
-            <p>Weatherline provides automated weather forecasts via SMS in response to user-initiated text messages. To use the service, text a city name or zip code to +1 989 357 8490.</p>
+            <p>Red Sky provides automated weather forecasts via SMS in response to user-initiated text messages. To use the service, text a city name or zip code to +1 989 357 8490.</p>
             <h3>Usage</h3>
             <p>This service is provided for personal, non-commercial use. By signing up you agree to receive automated weather forecast responses.</p>
             <h3>Opt Out</h3>
@@ -148,7 +148,7 @@ const html = `
     </section>
 
     <footer>
-      <p>&copy; 2026 Weatherline &mdash; Reply STOP to unsubscribe &mdash; Msg &amp; data rates may apply</p>
+      <p>&copy; 2026 Red Sky &mdash; Reply STOP to unsubscribe &mdash; Msg &amp; data rates may apply</p>
     </footer>
   </div>
 
