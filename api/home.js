@@ -24,7 +24,7 @@ const html = `
     .overlay { position: absolute; inset: 0; background: var(--overlay); }
     .page { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
     nav { padding: 2rem 3rem; border-bottom: 0.5px solid var(--white-faint); }
-    .hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem; max-width: 900px; }
+    .hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem 1rem 3rem; max-width: 900px; }
     .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 2rem; font-weight: 300; }
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
     .hero-sub { font-size: 0.95rem; line-height: 1.8; color: var(--white-dim); max-width: 400px; margin-bottom: 3.5rem; letter-spacing: 0.01em; font-weight: 300; }
