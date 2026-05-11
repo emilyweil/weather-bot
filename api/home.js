@@ -23,7 +23,7 @@ const html = `
     @keyframes pan { 0% { transform: translateX(0); } 50% { transform: translateX(-33%); } 100% { transform: translateX(0); } }
     .overlay { position: absolute; inset: 0; background: var(--overlay); }
     .page { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
-    nav { padding: 2rem 3rem; border-bottom: 0.5px solid var(--white-faint); }
+    nav { padding: 2rem 3rem; border-bottom: 0.5px solid var(--white-faint); display: flex; align-items: center; }
     .hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem 1rem 3rem; max-width: 900px; }
     .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 2rem; font-weight: 300; }
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
@@ -73,7 +73,9 @@ const html = `
     <div class="overlay"></div>
   </div>
   <div class="page">
-    <nav></nav>
+  <nav>
+  <span style="font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: 1.1rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ffffff;">Red Sky</span>
+</nav>
     <section class="hero">
       <p class="hero-eyebrow">Instant weather &mdash; no app required</p>
       <h1>The weather,<br />by text.</h1>
