@@ -89,7 +89,7 @@ const html = `
       <div class="checkbox-row">
         <input type="checkbox" id="consent" onchange="toggleSubmit()" />
         <label class="checkbox-label" for="consent">
-          By providing your phone number and checking this box, you agree to receive recurring automated weather forecast text messages from Weatherline at the number provided. Message frequency varies based on your requests. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+        By providing your phone number and checking this box, you agree to receive automated weather forecast text messages from Weatherline. Messages are only sent in response to your request — you will never receive a text unless you send one first. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
         </label>
       </div>
       <div class="form-message" id="formMessage"></div>
