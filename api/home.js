@@ -24,7 +24,7 @@ const html = `
     .overlay { position: absolute; inset: 0; background: var(--overlay); }
     .page { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
     nav { padding: 2rem 3rem; border-bottom: 0.5px solid var(--white-faint); }
-    .hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 6rem 3rem; max-width: 900px; }
+    .hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 3rem 3rem 2rem 3rem; max-width: 900px; }
     .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 2rem; font-weight: 300; }
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
     .hero-sub { font-size: 0.95rem; line-height: 1.8; color: var(--white-dim); max-width: 400px; margin-bottom: 3.5rem; letter-spacing: 0.01em; font-weight: 300; }
@@ -42,11 +42,11 @@ const html = `
     .checkbox-label { font-size: 0.78rem; line-height: 1.65; color: var(--white-dim); font-weight: 300; }
     .policy-block { margin-top: 1.5rem; border-top: 0.5px solid var(--white-faint); padding-top: 1.5rem; }
     .policy-block details { margin-bottom: 1rem; }
-    .policy-block summary { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-faint); cursor: pointer; font-weight: 300; margin-bottom: 0.75rem; }
-    .policy-block summary:hover { color: var(--white-dim); }
-    .policy-text { font-size: 0.75rem; line-height: 1.7; color: var(--white-faint); font-weight: 300; }
-    .policy-text h3 { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white-dim); font-weight: 400; margin: 1rem 0 0.4rem; }
-    .policy-text p { margin-bottom: 0.5rem; }
+    .policy-block summary { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-dim); cursor: pointer; font-weight: 400; margin-bottom: 0.75rem; }
+.policy-block summary:hover { color: var(--white); }
+    .policy-text { font-size: 0.85rem; line-height: 1.8; color: var(--white-dim); font-weight: 300; }
+    .policy-text h3 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); font-weight: 400; margin: 1.25rem 0 0.5rem; }
+    .policy-text p { margin-bottom: 0.75rem; color: var(--white-dim); }
     .form-message { font-size: 0.8rem; font-weight: 300; padding: 0.75rem 0; display: none; }
     .form-message.success { color: #a8f0c6; display: block; }
     .form-message.error { color: #f0a8a8; display: block; }
