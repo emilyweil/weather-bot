@@ -75,6 +75,10 @@ const html = `
   <div class="page">
   <nav>
   <span style="font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: 1.1rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ffffff;">Red Sky</span>
+  <div style="margin-left: auto; display: flex; gap: 2rem;">
+    <a href="/api/privacy" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; font-weight: 300;">Privacy</a>
+    <a href="/api/terms" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; font-weight: 300;">Terms</a>
+  </div>
 </nav>
     <section class="hero">
       <p class="hero-eyebrow">Instant weather &mdash; no app required</p>
