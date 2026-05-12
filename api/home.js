@@ -147,12 +147,12 @@ const html = `
       <div class="how-item">
         <span class="how-num">03</span>
         <span class="how-title">Get your forecast</span>
-        <p class="how-desc">Receive a real-time forecast within seconds. Reply STOP at any time to unsubscribe.</p>
+        <p class="how-desc">Receive a real-time forecast within seconds. Reply STOP at any time to cancel.</p>
       </div>
     </section>
 
     <footer>
-      <p>&copy; 2026 Red Sky &mdash; Reply STOP to unsubscribe &mdash; Msg &amp; data rates may apply</p>
+      <p>&copy; 2026 Red Sky &mdash; Reply STOP to cancel &mdash; Msg &amp; data rates may apply</p>
     </footer>
   </div>
 
