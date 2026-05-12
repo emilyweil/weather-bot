@@ -113,7 +113,7 @@ const html = `
             <h3>Message and Data Rates</h3>
             <p>Message and data rates may apply. Please check with your mobile carrier for details.</p>
             <h3>Opt Out</h3>
-            <p>Reply STOP to any message to unsubscribe at any time. Reply START to resubscribe. Reply HELP for assistance.</p>
+            <p>Reply STOP to any message to cancel at any time. Reply START to resubscribe. Reply HELP for assistance.</p>
           </div>
         </details>
         <details>
