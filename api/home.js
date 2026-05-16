@@ -152,7 +152,7 @@ const html = `
     </section>
 
     <footer>
-      <p>&copy; 2026 Red Sky &mdash; Reply STOP to cancel &mdash; Msg &amp; data rates may apply</p>
+      <p>&copy; 2026 Red Sky, a service of Studio Emily Weil LLC &mdash; Reply STOP to cancel &mdash; Msg &amp; data rates may apply</p>
     </footer>
   </div>
 
