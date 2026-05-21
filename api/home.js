@@ -90,13 +90,13 @@ const html = `
       <p class="signup-title">Sign up to get started</p>
       <div class="form-row">
         <input class="form-input" type="tel" id="phone" placeholder="Your phone number (e.g. +12125551234)" />
-        <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
+        <button class="form-submit" id="submitBtn" onclick="handleSignup()">Submit</button>
       </div>
       <div class="checkbox-row">
         <input type="checkbox" id="consent" onchange="toggleSubmit()" />
         <label class="checkbox-label" for="consent">
-        By providing your phone number and checking this box, you agree to receive automated weather forecast text messages from Red Sky. Messages are only sent in response to your request — you will never receive a text unless you send one first. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
-        </label>
+  (Optional) I agree to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. Checking this box is not required to use the service. Messages are only sent in response to your request. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+</label>
       </div>
       <div class="form-message" id="formMessage"></div>
       <div class="policy-block">
@@ -157,11 +157,9 @@ const html = `
   </div>
 
   <script>
-    function toggleSubmit() {
-      const cb = document.getElementById('consent');
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = !cb.checked;
-    }
+  function toggleSubmit() {
+    // consent is optional, button always enabled
+  }
 
     async function handleSignup() {
       const phone = document.getElementById('phone').value.trim();
