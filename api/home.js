@@ -95,7 +95,7 @@ const html = `
       <div class="checkbox-row">
         <input type="checkbox" id="consent" onchange="toggleSubmit()" />
         <label class="checkbox-label" for="consent">
-  (Optional) I agree to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. Checking this box is not required to use the service. Messages are only sent in response to your request. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+        (Optional) I agree to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. Messages are only sent in response to your request. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
 </label>
       </div>
       <div class="form-message" id="formMessage"></div>
