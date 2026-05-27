@@ -87,17 +87,17 @@ const html = `
     </section>
 
     <section class="signup-section">
-      <p class="signup-title">Sign up to get started</p>
-      <div class="form-row">
-        <input class="form-input" type="tel" id="phone" placeholder="Your phone number (e.g. +12125551234)" />
-        <button class="form-submit" id="submitBtn" onclick="handleSignup()">Submit</button>
-      </div>
-      <div class="checkbox-row">
-        <input type="checkbox" id="consent" onchange="toggleSubmit()" />
-        <label class="checkbox-label" for="consent">
-        (Optional) I agree to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. Messages are only sent in response to your request. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
-</label>
-      </div>
+    <p class="signup-title">Sign up to get started</p>
+    <div class="form-row">
+      <input class="form-input" type="tel" id="phone" placeholder="Your phone number (e.g. +12125551234)" />
+      <button class="form-submit" id="submitBtn" onclick="handleSignup()">Submit</button>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="consent" onchange="toggleSubmit()" />
+      <label class="checkbox-label" for="consent">
+        <strong style="color:#ffffff;">Optional:</strong> I would like to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+      </label>
+    </div>
       <div class="form-message" id="formMessage"></div>
       <div class="policy-block">
         <details>
@@ -152,8 +152,9 @@ const html = `
     </section>
 
     <footer>
-      <p>&copy; 2026 Red Sky, a service of Studio Emily Weil LLC &mdash; Reply STOP to cancel &mdash; Msg &amp; data rates may apply</p>
-    </footer>
+    <p>&copy; 2026 Red Sky, a service of Studio Emily Weil LLC &mdash; Reply STOP to unsubscribe &mdash; Msg &amp; data rates may apply</p>
+    <p style="margin-top: 0.5rem;">SMS consent is not a condition of service. <a href="/api/privacy" style="color:rgba(255,255,255,0.45); text-decoration:none;">Privacy Policy</a> &mdash; <a href="/api/terms" style="color:rgba(255,255,255,0.45); text-decoration:none;">Terms</a></p>
+  </footer>
   </div>
 
   <script>
@@ -161,46 +162,47 @@ const html = `
     // consent is optional, button always enabled
   }
 
-    async function handleSignup() {
-      const phone = document.getElementById('phone').value.trim();
-      const msg = document.getElementById('formMessage');
-      const btn = document.getElementById('submitBtn');
-      if (!phone) {
-        msg.className = 'form-message error';
-        msg.textContent = 'Please enter your phone number.';
-        return;
-      }
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
-      msg.className = 'form-message';
-      msg.textContent = '';
-      try {
-        const res = await fetch('/api/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone })
-        });
-        const data = await res.json();
-        if (res.ok) {
+  async function handleSignup() {
+    const phone = document.getElementById('phone').value.trim();
+    const consent = document.getElementById('consent').checked;
+    const msg = document.getElementById('formMessage');
+    const btn = document.getElementById('submitBtn');
+    if (!phone) {
+      msg.className = 'form-message error';
+      msg.textContent = 'Please enter your phone number.';
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    msg.className = 'form-message';
+    msg.textContent = '';
+    try {
+      const res = await fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, consent })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        if (data.message === 'subscribed') {
           msg.className = 'form-message success';
           msg.textContent = 'You are subscribed! Text any city to +1 989 357 8490 to get your first forecast.';
-          document.getElementById('phone').value = '';
-          document.getElementById('consent').checked = false;
-          btn.disabled = true;
         } else {
-          throw new Error(data.error || 'Something went wrong.');
+          msg.className = 'form-message success';
+          msg.textContent = 'You are registered. Check the SMS opt-in box and resubmit to receive weather forecasts by text.';
         }
-      } catch (err) {
-        msg.className = 'form-message error';
-        msg.textContent = err.message;
-        btn.disabled = false;
+        document.getElementById('phone').value = '';
+        document.getElementById('consent').checked = false;
+      } else {
+        throw new Error(data.error || 'Something went wrong.');
       }
-      btn.textContent = 'Submit';
+    } catch (err) {
+      msg.className = 'form-message error';
+      msg.textContent = err.message;
+      btn.disabled = false;
     }
-  </script>
-</body>
-</html>
-`;
+    btn.textContent = 'Submit';
+  }
 
 export default function handler(req, res) {
   res.setHeader("Content-Type", "text/html");

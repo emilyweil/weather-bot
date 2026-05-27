@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   try {
     if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
-    const { phone } = req.body;
+    const { phone, consent } = req.body;
     if (!phone) return res.status(400).json({ error: "Phone number is required." });
 
     const cleaned = phone.replace(/\s+/g, "");
@@ -29,23 +29,27 @@ export default async function handler(req, res) {
       .eq("phone_number", cleaned)
       .single();
 
-    if (existing && existing.opted_in) {
-      return res.status(400).json({ error: "This number is already subscribed." });
-    }
-
-    if (existing && !existing.opted_in) {
-      await supabase.from("subscribers").update({ opted_in: true }).eq("phone_number", cleaned);
+    if (existing) {
+      if (consent && !existing.opted_in) {
+        await supabase.from("subscribers").update({ opted_in: true }).eq("phone_number", cleaned);
+      } else if (existing.opted_in) {
+        return res.status(400).json({ error: "This number is already subscribed." });
+      }
     } else {
-      await supabase.from("subscribers").insert({ phone_number: cleaned, opted_in: true });
+      await supabase.from("subscribers").insert({ phone_number: cleaned, opted_in: consent ? true : false });
     }
 
-    await client.messages.create({
-      from: process.env.TWILIO_SMS_NUMBER,
-      to: cleaned,
-      body: "You're subscribed to Weatherline! Text any city or zip code to get a weather forecast. Reply STOP to cancel, HELP for help. Msg & data rates may apply."
-    });
+    if (consent) {
+      await client.messages.create({
+        from: process.env.TWILIO_SMS_NUMBER,
+        to: cleaned,
+        body: "You're subscribed to Red Sky, a service of Studio Emily Weil LLC. Text any city or zip code to get a weather forecast. Reply STOP to cancel, HELP for help. Msg & data rates may apply."
+      });
+      return res.status(200).json({ success: true, message: "subscribed" });
+    }
 
-    res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, message: "registered" });
+
   } catch (err) {
     console.error("Signup error:", err);
     res.status(500).json({ error: err.message || "Something went wrong. Please try again." });
