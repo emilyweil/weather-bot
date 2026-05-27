@@ -24,10 +24,14 @@ const html = `
     .overlay { position: absolute; inset: 0; background: var(--overlay); }
     .page { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
     nav { padding: 2rem 3rem; border-bottom: 0.5px solid var(--white-faint); display: flex; align-items: center; }
-    .hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem 1rem 3rem; max-width: 900px; }
+    .nav-logo { font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: 1.1rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ffffff; }
+    .nav-links { margin-left: auto; display: flex; gap: 2rem; }
+    .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; font-weight: 300; }
+    .nav-links a:hover { color: #ffffff; }
+    .hero { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem 1rem 3rem; max-width: 900px; }
     .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 2rem; font-weight: 300; }
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
-    .hero-sub { font-size: 0.95rem; line-height: 1.8; color: var(--white-dim); max-width: 400px; margin-bottom: 3.5rem; letter-spacing: 0.01em; font-weight: 300; }
+    .hero-sub { font-size: 0.95rem; line-height: 1.8; color: var(--white-dim); max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
     .signup-section { border-top: 0.5px solid var(--white-faint); padding: 2.5rem 3rem; max-width: 600px; }
     .signup-title { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 2rem; font-weight: 300; }
     .form-row { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
@@ -37,13 +41,14 @@ const html = `
     .form-submit { background: #ffffff; color: #0a0a0a; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 1.75rem; border: none; cursor: pointer; transition: opacity 0.3s ease; white-space: nowrap; border-radius: 0; }
     .form-submit:hover { opacity: 0.85; }
     .form-submit:disabled { opacity: 0.4; cursor: not-allowed; }
-    .checkbox-row { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1.5rem; }
+    .checkbox-row { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
     .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 16px; height: 16px; accent-color: #ffffff; cursor: pointer; }
     .checkbox-label { font-size: 0.78rem; line-height: 1.65; color: var(--white-dim); font-weight: 300; }
+    .checkbox-label a { color: rgba(255,255,255,0.8); }
     .policy-block { margin-top: 1.5rem; border-top: 0.5px solid var(--white-faint); padding-top: 1.5rem; }
     .policy-block details { margin-bottom: 1rem; }
     .policy-block summary { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-dim); cursor: pointer; font-weight: 400; margin-bottom: 0.75rem; }
-.policy-block summary:hover { color: var(--white); }
+    .policy-block summary:hover { color: var(--white); }
     .policy-text { font-size: 0.85rem; line-height: 1.8; color: var(--white-dim); font-weight: 300; }
     .policy-text h3 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); font-weight: 400; margin: 1.25rem 0 0.5rem; }
     .policy-text p { margin-bottom: 0.75rem; color: var(--white-dim); }
@@ -57,10 +62,12 @@ const html = `
     .how-desc { font-size: 0.85rem; line-height: 1.75; color: var(--white-dim); letter-spacing: 0.01em; font-weight: 300; }
     footer { border-top: 0.5px solid var(--white-faint); padding: 2rem 3rem; }
     footer p { font-size: 0.7rem; letter-spacing: 0.1em; color: var(--white-faint); text-transform: uppercase; font-weight: 300; }
+    footer p + p { margin-top: 0.5rem; }
+    footer a { color: rgba(255,255,255,0.45); text-decoration: none; }
     @media (max-width: 768px) {
       nav { padding: 1.5rem; }
-      .hero { padding: 4rem 1.5rem; }
-      .signup-section { padding: 3rem 1.5rem; }
+      .hero { padding: 3rem 1.5rem 1rem 1.5rem; }
+      .signup-section { padding: 2.5rem 1.5rem; }
       .form-row { flex-direction: column; }
       .how-section { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
       footer { padding: 1.5rem; }
@@ -73,13 +80,14 @@ const html = `
     <div class="overlay"></div>
   </div>
   <div class="page">
-  <nav>
-  <span style="font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: 1.1rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ffffff;">Red Sky</span>
-  <div style="margin-left: auto; display: flex; gap: 2rem;">
-    <a href="/api/privacy" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; font-weight: 300;">Privacy</a>
-    <a href="/api/terms" style="font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; font-weight: 300;">Terms</a>
-  </div>
-</nav>
+    <nav>
+      <span class="nav-logo">Red Sky</span>
+      <div class="nav-links">
+        <a href="/api/privacy">Privacy</a>
+        <a href="/api/terms">Terms</a>
+      </div>
+    </nav>
+
     <section class="hero">
       <p class="hero-eyebrow">Instant weather &mdash; no app required</p>
       <h1>The weather,<br />by text.</h1>
@@ -87,29 +95,34 @@ const html = `
     </section>
 
     <section class="signup-section">
-    <p class="signup-title">Sign up to get started</p>
-    <div class="form-row">
-      <input class="form-input" type="tel" id="phone" placeholder="Your phone number (e.g. +12125551234)" />
-      <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
-    </div>
-    <div class="checkbox-row">
-    <input type="checkbox" id="terms" onchange="toggleSubmit()" />
-    <label class="checkbox-label" for="terms">
-      I agree to the <a href="/api/terms" style="color:rgba(255,255,255,0.8);">Terms of Service</a> and <a href="/api/privacy" style="color:rgba(255,255,255,0.8);">Privacy Policy</a>.
-    </label>
-  </div>
-  <div class="checkbox-row" style="margin-top: 0.75rem;">
-    <input type="checkbox" id="consent" />
-    <label class="checkbox-label" for="consent">
-      <strong style="color:#ffffff;">Optional:</strong> I would like to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
-    </label>
-  </div>
+      <p class="signup-title">Sign up to get started</p>
+      <div class="form-row">
+        <input class="form-input" type="tel" id="phone" placeholder="Your phone number (e.g. +12125551234)" />
+        <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="terms" onchange="toggleSubmit()" />
+        <label class="checkbox-label" for="terms">
+          I agree to the <a href="/api/terms">Terms of Service</a> and <a href="/api/privacy">Privacy Policy</a>.
+        </label>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="consent" />
+        <label class="checkbox-label" for="consent">
+          <strong style="color:#ffffff;">Optional:</strong> I would like to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+        </label>
+      </div>
+
       <div class="form-message" id="formMessage"></div>
+
       <div class="policy-block">
         <details>
           <summary>Privacy Policy</summary>
           <div class="policy-text">
             <p>Last updated: May 2026</p>
+            <p>Red Sky is a service of Studio Emily Weil LLC.</p>
             <h3>What We Collect</h3>
             <p>When you sign up or text this service, we collect only your phone number and the location queries you send, solely to provide you with weather forecasts.</p>
             <h3>How We Use Your Data</h3>
@@ -119,19 +132,22 @@ const html = `
             <h3>Message and Data Rates</h3>
             <p>Message and data rates may apply. Please check with your mobile carrier for details.</p>
             <h3>Opt Out</h3>
-            <p>Reply STOP to any message to cancel at any time. Reply START to resubscribe. Reply HELP for assistance.</p>
+            <p>Reply STOP to any message to unsubscribe at any time. Reply START to resubscribe. Reply HELP for assistance.</p>
           </div>
         </details>
         <details>
           <summary>Terms and Conditions</summary>
           <div class="policy-text">
             <p>Last updated: May 2026</p>
+            <p>Red Sky is a service of Studio Emily Weil LLC.</p>
             <h3>Service Description</h3>
             <p>Red Sky provides automated weather forecasts via SMS in response to user-initiated text messages. To use the service, text a city name or zip code to +1 989 357 8490.</p>
             <h3>Usage</h3>
-            <p>This service is provided for personal, non-commercial use. By signing up you agree to receive automated weather forecast responses.</p>
+            <p>This service is provided for personal, non-commercial use. By signing up you agree to receive automated weather forecast responses only if you have opted in to SMS messages.</p>
             <h3>Opt Out</h3>
             <p>Reply STOP at any time to stop receiving messages. Reply START to resume. Reply HELP for assistance. Message and data rates may apply.</p>
+            <h3>SMS Consent</h3>
+            <p>SMS consent is not a condition of service. You may create an account without opting in to receive text messages.</p>
             <h3>Disclaimer</h3>
             <p>Weather forecasts are provided by OpenWeatherMap for informational purposes only. We are not responsible for any decisions made based on the weather information provided.</p>
           </div>
@@ -143,7 +159,7 @@ const html = `
       <div class="how-item">
         <span class="how-num">01</span>
         <span class="how-title">Sign up</span>
-        <p class="how-desc">Enter your phone number above and check the box to opt in. You will get a confirmation text right away.</p>
+        <p class="how-desc">Enter your phone number above and agree to the terms. Check the optional SMS box if you would like to receive forecasts by text.</p>
       </div>
       <div class="how-item">
         <span class="how-num">02</span>
@@ -153,64 +169,70 @@ const html = `
       <div class="how-item">
         <span class="how-num">03</span>
         <span class="how-title">Get your forecast</span>
-        <p class="how-desc">Receive a real-time forecast within seconds. Reply STOP at any time to cancel.</p>
+        <p class="how-desc">Receive a real-time forecast within seconds. Reply STOP at any time to unsubscribe.</p>
       </div>
     </section>
 
     <footer>
-    <p>&copy; 2026 Red Sky, a service of Studio Emily Weil LLC &mdash; Reply STOP to unsubscribe &mdash; Msg &amp; data rates may apply</p>
-    <p style="margin-top: 0.5rem;">SMS consent is not a condition of service. <a href="/api/privacy" style="color:rgba(255,255,255,0.45); text-decoration:none;">Privacy Policy</a> &mdash; <a href="/api/terms" style="color:rgba(255,255,255,0.45); text-decoration:none;">Terms</a></p>
-  </footer>
+      <p>&copy; 2026 Red Sky, a service of Studio Emily Weil LLC &mdash; Reply STOP to unsubscribe &mdash; Msg &amp; data rates may apply</p>
+      <p>SMS consent is not a condition of service. <a href="/api/privacy">Privacy Policy</a> &mdash; <a href="/api/terms">Terms</a></p>
+    </footer>
   </div>
 
   <script>
-  function toggleSubmit() {
-    const terms = document.getElementById('terms');
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = !terms.checked;
-  }
+    function toggleSubmit() {
+      const terms = document.getElementById('terms');
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = !terms.checked;
+    }
 
-  async function handleSignup() {
-    const phone = document.getElementById('phone').value.trim();
-    const consent = document.getElementById('consent').checked;
-    const msg = document.getElementById('formMessage');
-    const btn = document.getElementById('submitBtn');
-    if (!phone) {
-      msg.className = 'form-message error';
-      msg.textContent = 'Please enter your phone number.';
-      return;
-    }
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-    msg.className = 'form-message';
-    msg.textContent = '';
-    try {
-      const res = await fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, consent })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        if (data.message === 'subscribed') {
-          msg.className = 'form-message success';
-          msg.textContent = 'You are subscribed! Text any city to +1 989 357 8490 to get your first forecast.';
-        } else {
-          msg.className = 'form-message success';
-          msg.textContent = 'You are registered. Check the SMS opt-in box and resubmit to receive weather forecasts by text.';
-        }
-        document.getElementById('phone').value = '';
-        document.getElementById('consent').checked = false;
-      } else {
-        throw new Error(data.error || 'Something went wrong.');
+    async function handleSignup() {
+      const phone = document.getElementById('phone').value.trim();
+      const consent = document.getElementById('consent').checked;
+      const msg = document.getElementById('formMessage');
+      const btn = document.getElementById('submitBtn');
+      if (!phone) {
+        msg.className = 'form-message error';
+        msg.textContent = 'Please enter your phone number.';
+        return;
       }
-    } catch (err) {
-      msg.className = 'form-message error';
-      msg.textContent = err.message;
-      btn.disabled = false;
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      msg.className = 'form-message';
+      msg.textContent = '';
+      try {
+        const res = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone, consent })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          if (data.message === 'subscribed') {
+            msg.className = 'form-message success';
+            msg.textContent = 'You are subscribed! Text any city to +1 989 357 8490 to get your first forecast.';
+          } else {
+            msg.className = 'form-message success';
+            msg.textContent = 'You are registered. Check the SMS opt-in box and resubmit to receive weather forecasts by text.';
+          }
+          document.getElementById('phone').value = '';
+          document.getElementById('consent').checked = false;
+          document.getElementById('terms').checked = false;
+          btn.disabled = true;
+        } else {
+          throw new Error(data.error || 'Something went wrong.');
+        }
+      } catch (err) {
+        msg.className = 'form-message error';
+        msg.textContent = err.message;
+        btn.disabled = false;
+      }
+      btn.textContent = 'Submit';
     }
-    btn.textContent = 'Submit';
-  }
+  </script>
+</body>
+</html>
+`;
 
 export default function handler(req, res) {
   res.setHeader("Content-Type", "text/html");
