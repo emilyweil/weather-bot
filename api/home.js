@@ -90,14 +90,20 @@ const html = `
     <p class="signup-title">Sign up to get started</p>
     <div class="form-row">
       <input class="form-input" type="tel" id="phone" placeholder="Your phone number (e.g. +12125551234)" />
-      <button class="form-submit" id="submitBtn" onclick="handleSignup()">Submit</button>
+      <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
     </div>
     <div class="checkbox-row">
-      <input type="checkbox" id="consent" onchange="toggleSubmit()" />
-      <label class="checkbox-label" for="consent">
-        <strong style="color:#ffffff;">Optional:</strong> I would like to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
-      </label>
-    </div>
+    <input type="checkbox" id="terms" onchange="toggleSubmit()" />
+    <label class="checkbox-label" for="terms">
+      I agree to the <a href="/api/terms" style="color:rgba(255,255,255,0.8);">Terms of Service</a> and <a href="/api/privacy" style="color:rgba(255,255,255,0.8);">Privacy Policy</a>.
+    </label>
+  </div>
+  <div class="checkbox-row" style="margin-top: 0.75rem;">
+    <input type="checkbox" id="consent" />
+    <label class="checkbox-label" for="consent">
+      <strong style="color:#ffffff;">Optional:</strong> I would like to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+    </label>
+  </div>
       <div class="form-message" id="formMessage"></div>
       <div class="policy-block">
         <details>
@@ -159,7 +165,9 @@ const html = `
 
   <script>
   function toggleSubmit() {
-    // consent is optional, button always enabled
+    const terms = document.getElementById('terms');
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = !terms.checked;
   }
 
   async function handleSignup() {
