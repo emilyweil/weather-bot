@@ -13,7 +13,7 @@ export default function handler(req, res) {
         <body>
           <h1>Privacy Policy</h1>
           <p>Last updated: May 2026</p>
-<p>Red Sky is a service of Studio Emily Weil LLC.</p>
+          <p>Red Sky is a brand of Studio Emily Weil LLC.</p>
   
           <h2>What We Collect</h2>
           <p>When you text this service, we collect only your phone number and the location query you send, solely to provide you with a weather forecast.</p>

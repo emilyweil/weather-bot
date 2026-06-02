@@ -13,7 +13,7 @@ export default function handler(req, res) {
       <body>
         <h1>Terms and Conditions</h1>
         <p>Last updated: May 2026</p>
-        <p>Red Sky is a service of Studio Emily Weil LLC.</p>
+        <p>Red Sky is a brand of Studio Emily Weil LLC.</p>
         <h2>Service Description</h2>
         <p>This service provides weather forecasts in response to user-initiated text messages. To use the service, text a city name or zip code to the number and you will receive an automated weather forecast response.</p>
 

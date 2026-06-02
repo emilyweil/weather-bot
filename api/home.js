@@ -111,7 +111,7 @@ const html = `
       <div class="checkbox-row">
         <input type="checkbox" id="consent" />
         <label class="checkbox-label" for="consent">
-          <strong style="color:#ffffff;">Optional:</strong> I would like to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+        <strong style="color:#ffffff;">Optional:</strong> I would like to receive automated weather forecast text messages from Studio Emily Weil LLC (Red Sky).
         </label>
       </div>
 
@@ -174,7 +174,7 @@ const html = `
     </section>
 
     <footer>
-      <p>&copy; 2026 Red Sky, a service of Studio Emily Weil LLC &mdash; Reply STOP to unsubscribe &mdash; Msg &amp; data rates may apply</p>
+    <p>&copy; 2026 Studio Emily Weil LLC (Red Sky) &mdash; Reply STOP to unsubscribe &mdash; Msg &amp; data rates may apply</p>
       <p>SMS consent is not a condition of service. <a href="/api/privacy">Privacy Policy</a> &mdash; <a href="/api/terms">Terms</a></p>
     </footer>
   </div>
