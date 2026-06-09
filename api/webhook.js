@@ -40,12 +40,19 @@ async function getWeather(location) {
   const response = await axios.get(forecastUrl);
   const forecasts = response.data.list;
 
-  const labels = ["Now", "In 3 hours", "In 6 hours"];
   const lines = forecasts.map((f, i) => {
     const temp = Math.round(f.main.temp);
     const desc = f.weather[0].description;
     const rain = Math.round((f.pop || 0) * 100);
-    return `${labels[i]}: ${temp}°F, ${desc}, ${rain}% chance of rain`;
+    if (i === 0) {
+      return `Now: ${temp}°F, ${desc}, ${rain}% chance of rain`;
+    }
+    const time = new Date(f.dt * 1000).toLocaleString("en-US", {
+      weekday: "short",
+      hour: "numeric",
+      hour12: true,
+    });
+    return `${time}: ${temp}°F, ${desc}, ${rain}% chance of rain`;
   });
 
   return `📍 ${cityName} Forecast:\n${lines.join("\n")}`;
