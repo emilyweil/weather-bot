@@ -97,7 +97,7 @@ const html = `
     <section class="signup-section">
       <p class="signup-title">Sign up to get started</p>
       <div class="form-row">
-      <span style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; color: #ffffff; white-space: nowrap; display: flex; align-items: center;">Phone number</span>
+      <span style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 300; color: #ffffff; white-space: nowrap; display: flex; align-items: center;">Phone number</span>
       <input class="form-input" type="tel" id="phone" placeholder="Format: +12125551234 or (212)555-1234" style="min-width: 320px; width: 100%;" />
   <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
 </div>
