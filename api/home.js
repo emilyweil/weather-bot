@@ -38,7 +38,7 @@ const html = `
     .form-input { flex: 1; background: rgba(255,255,255,0.08); border: 0.5px solid var(--white-faint); color: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 300; padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s ease; border-radius: 0; }
     .form-input::placeholder { color: rgba(255,255,255,0.55); }
     .form-input:focus { border-color: var(--white-dim); }
-    ..form-submit { background: rgba(255,255,255,1); color: #000000; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 1.75rem; border: none; cursor: pointer; transition: background 0.3s ease; white-space: nowrap; border-radius: 0; }
+    .form-submit { background: rgba(255,255,255,1); color: #000000; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 1.75rem; border: none; cursor: pointer; transition: background 0.3s ease; white-space: nowrap; border-radius: 0; }
     .form-submit:hover { background: rgba(255,255,255,0.9); }
     .form-submit:disabled { background: rgba(255,255,255,0.3); color: rgba(0,0,0,0.5); cursor: not-allowed; }
     .checkbox-row { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
