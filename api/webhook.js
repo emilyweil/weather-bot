@@ -50,6 +50,7 @@ async function getWeather(location) {
     const desc = f.weather[0].description;
     const rain = Math.round((f.pop || 0) * 100);
     return `${time}: ${temp}°F, ${desc}, ${rain}% chance of rain`;
+  });
 
   return `📍 ${cityName} Forecast:\n${lines.join("\n")}`;
 }
