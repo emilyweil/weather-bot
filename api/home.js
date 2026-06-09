@@ -24,23 +24,23 @@ const html = `
     .overlay { position: absolute; inset: 0; background: var(--overlay); }
     .page { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
     nav { padding: 2rem 3rem; border-bottom: 0.5px solid var(--white-faint); display: flex; align-items: center; }
-    .nav-logo { font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: 1.1rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ffffff; }
+    .nav-logo { font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: 1.1rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ffffff !important; }
     .nav-links { margin-left: auto; display: flex; gap: 2rem; }
     .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; font-weight: 300; }
     .nav-links a:hover { color: #ffffff; }
     .hero { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem 1rem 3rem; max-width: 900px; }
-    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 2rem; font-weight: 300; }
+    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
-    .hero-sub { font-size: 0.95rem; line-height: 1.8; color: var(--white-dim); max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
+    .hero-sub { font-size: 0.95rem; line-height: 1.8; color: #ffffff; max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
     .signup-section { border-top: 0.5px solid var(--white-faint); padding: 2.5rem 3rem; max-width: 600px; }
     .signup-title { font-size: 0.85rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .form-row { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
     .form-input { flex: 1; background: rgba(255,255,255,0.08); border: 0.5px solid var(--white-faint); color: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 300; padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s ease; border-radius: 0; }
     .form-input::placeholder { color: rgba(255,255,255,0.55); }
     .form-input:focus { border-color: var(--white-dim); }
-    .form-submit { background: #ffffff; color: #0a0a0a; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 1.75rem; border: none; cursor: pointer; transition: opacity 0.3s ease; white-space: nowrap; border-radius: 0; }
-    .form-submit:hover { opacity: 0.85; }
-    .form-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+    .form-submit { background: #ffffff; color: #0a0a0a; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 1.75rem; border: none; cursor: pointer; transition: opacity 0.3s ease; white-space: nowrap; border-radius: 0; box-shadow: 0 0 0 2px rgba(255,255,255,0.8); }
+    .form-submit:hover { opacity: 0.9; }
+    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
     .checkbox-row { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
     .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 16px; height: 16px; accent-color: #ffffff; cursor: pointer; }
     .checkbox-label { font-size: 0.85rem; line-height: 1.65; color: #ffffff; font-weight: 300; }
@@ -97,8 +97,8 @@ const html = `
     <section class="signup-section">
       <p class="signup-title">Sign up to get started</p>
       <div class="form-row">
-  <span style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; color: #ffffff; white-space: nowrap; display: flex; align-items: center;">Phone Number</span>
-  <input class="form-input" type="tel" id="phone" placeholder="e.g. +12125551234 or (212)555-1234" />
+      <span style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; color: #ffffff; white-space: nowrap; display: flex; align-items: center;">Phone number</span>
+      <input class="form-input" type="tel" id="phone" placeholder="e.g. +12125551234 or (212)555-1234" style="min-width: 280px;" />
   <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
 </div>
 
