@@ -38,9 +38,9 @@ const html = `
     .form-input { flex: 1; background: rgba(255,255,255,0.08); border: 0.5px solid var(--white-faint); color: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 300; padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s ease; border-radius: 0; }
     .form-input::placeholder { color: rgba(255,255,255,0.55); }
     .form-input:focus { border-color: var(--white-dim); }
-    .form-submit { background: rgba(255,255,255,0.75); color: #000000; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 2.5rem; border: none; cursor: pointer; transition: background 0.3s ease; white-space: nowrap; border-radius: 0; min-width: 120px; }
-    .form-submit:hover { background: rgba(255,255,255,0.9); }
-    .form-submit:disabled { background: rgba(255,255,255,0.25); color: rgba(0,0,0,0.4); cursor: not-allowed; }
+    .form-submit { background: #ffffff; color: #000000; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 2.5rem; border: none; cursor: pointer; transition: opacity 0.3s ease; white-space: nowrap; border-radius: 0; min-width: 120px; opacity: 1; }
+.form-submit:hover { opacity: 0.90; }
+.form-submit:disabled { opacity: 1; background: #ffffff; color: rgba(0,0,0,0.35); cursor: not-allowed; }
     .checkbox-row { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
     .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 16px; height: 16px; accent-color: #ffffff; cursor: pointer; }
     .checkbox-label { font-size: 0.85rem; line-height: 1.65; color: #ffffff; font-weight: 300; }
