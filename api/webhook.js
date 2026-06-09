@@ -11,13 +11,35 @@ const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_KEY
 );
-
 async function getWeather(location) {
   const apiKey = process.env.OPENWEATHER_API_KEY;
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&appid=${apiKey}&units=imperial&cnt=3`;
-  const response = await axios.get(url);
+
+  // First geocode the location to get clean city name and coordinates
+  const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(location)}&limit=1&appid=${apiKey}`;
+  const zipUrl = `https://api.openweathermap.org/geo/1.0/zip?zip=${encodeURIComponent(location)},US&appid=${apiKey}`;
+
+  let cityName, lat, lon;
+
+  try {
+    // Try zip code first
+    const zipRes = await axios.get(zipUrl);
+    cityName = zipRes.data.name;
+    lat = zipRes.data.lat;
+    lon = zipRes.data.lon;
+  } catch {
+    // Fall back to city name search
+    const geoRes = await axios.get(geoUrl);
+    if (!geoRes.data.length) throw new Error("Location not found");
+    cityName = geoRes.data[0].name;
+    lat = geoRes.data[0].lat;
+    lon = geoRes.data[0].lon;
+  }
+
+  // Get forecast using coordinates
+  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&cnt=3`;
+  const response = await axios.get(forecastUrl);
   const forecasts = response.data.list;
-  const cityName = response.data.city.name;
+
   const lines = forecasts.map((f) => {
     const time = new Date(f.dt * 1000).toLocaleString("en-US", {
       weekday: "short",
@@ -28,9 +50,9 @@ async function getWeather(location) {
     const desc = f.weather[0].description;
     return `${time}: ${temp}°F, ${desc}`;
   });
+
   return `📍 ${cityName} Forecast:\n${lines.join("\n")}`;
 }
-
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).send("Method Not Allowed");
 
