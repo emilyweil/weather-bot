@@ -48,7 +48,8 @@ async function getWeather(location) {
     });
     const temp = Math.round(f.main.temp);
     const desc = f.weather[0].description;
-    return `${time}: ${temp}°F, ${desc}`;
+    const rain = Math.round((f.pop || 0) * 100);
+return `${time}: ${temp}°F, ${desc}${rain > 0 ? `, ${rain}% chance of rain` : ""}`;
   });
 
   return `📍 ${cityName} Forecast:\n${lines.join("\n")}`;
