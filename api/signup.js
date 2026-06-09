@@ -18,10 +18,18 @@ export default async function handler(req, res) {
     const { phone, consent } = req.body;
     if (!phone) return res.status(400).json({ error: "Phone number is required." });
 
-    const cleaned = phone.replace(/\s+/g, "");
-    if (!/^\+1\d{10}$/.test(cleaned)) {
-      return res.status(400).json({ error: "Please enter a valid US number in the format +12125551234." });
-    }
+  // Strip all non-digit characters
+const digits = phone.replace(/\D/g, "");
+
+// Accept 10 digits (no country code) or 11 digits starting with 1
+let cleaned;
+if (digits.length === 10) {
+  cleaned = "+1" + digits;
+} else if (digits.length === 11 && digits.startsWith("1")) {
+  cleaned = "+" + digits;
+} else {
+  return res.status(400).json({ error: "Make sure you enter a valid US number, in one of these formats: +12125551234 or (212)555-1234." });
+}
 
     const { data: existing } = await supabase
       .from("subscribers")

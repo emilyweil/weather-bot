@@ -33,28 +33,28 @@ const html = `
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
     .hero-sub { font-size: 0.95rem; line-height: 1.8; color: var(--white-dim); max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
     .signup-section { border-top: 0.5px solid var(--white-faint); padding: 2.5rem 3rem; max-width: 600px; }
-    .signup-title { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 2rem; font-weight: 300; }
+    .signup-title { font-size: 0.85rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .form-row { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
     .form-input { flex: 1; background: rgba(255,255,255,0.08); border: 0.5px solid var(--white-faint); color: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 300; padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s ease; border-radius: 0; }
-    .form-input::placeholder { color: var(--white-faint); }
+    .form-input::placeholder { color: rgba(255,255,255,0.55); }
     .form-input:focus { border-color: var(--white-dim); }
     .form-submit { background: #ffffff; color: #0a0a0a; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 1.75rem; border: none; cursor: pointer; transition: opacity 0.3s ease; white-space: nowrap; border-radius: 0; }
     .form-submit:hover { opacity: 0.85; }
     .form-submit:disabled { opacity: 0.4; cursor: not-allowed; }
     .checkbox-row { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
     .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 16px; height: 16px; accent-color: #ffffff; cursor: pointer; }
-    .checkbox-label { font-size: 0.78rem; line-height: 1.65; color: var(--white-dim); font-weight: 300; }
-    .checkbox-label a { color: rgba(255,255,255,0.8); }
+    .checkbox-label { font-size: 0.85rem; line-height: 1.65; color: #ffffff; font-weight: 300; }
+    .checkbox-label a { color: #ffffff; text-decoration: underline; }
     .policy-block { margin-top: 1.5rem; border-top: 0.5px solid var(--white-faint); padding-top: 1.5rem; }
     .policy-block details { margin-bottom: 1rem; }
-    .policy-block summary { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-dim); cursor: pointer; font-weight: 400; margin-bottom: 0.75rem; }
-    .policy-block summary:hover { color: var(--white); }
-    .policy-text { font-size: 0.85rem; line-height: 1.8; color: var(--white-dim); font-weight: 300; }
-    .policy-text h3 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); font-weight: 400; margin: 1.25rem 0 0.5rem; }
-    .policy-text p { margin-bottom: 0.75rem; color: var(--white-dim); }
-    .form-message { font-size: 0.8rem; font-weight: 300; padding: 0.75rem 0; display: none; }
-    .form-message.success { color: #a8f0c6; display: block; }
-    .form-message.error { color: #f0a8a8; display: block; }
+    .policy-block summary { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; cursor: pointer; font-weight: 300; margin-bottom: 0.75rem; }
+    .policy-block summary:hover { color: var(--white-dim); }
+    .policy-text { font-size: 0.85rem; line-height: 1.8; color: #ffffff; font-weight: 300; }
+    .policy-text h3 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ffffff; font-weight: 400; margin: 1.25rem 0 0.5rem; }
+    .policy-text p { margin-bottom: 0.75rem; color: rgba(255,255,255,0.85); }
+    .form-message { font-size: 0.85rem; font-weight: 300; padding: 0.75rem 0; display: none; }
+    .form-message.success { color: #ffe033; display: block; }
+    .form-message.error { color: #ff3333; display: block; }
     .how-section { border-top: 0.5px solid var(--white-faint); padding: 5rem 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
     .how-item { display: flex; flex-direction: column; gap: 1rem; }
     .how-num { font-size: 2rem; font-weight: 300; color: var(--white-dim); line-height: 1; }
@@ -97,21 +97,22 @@ const html = `
     <section class="signup-section">
       <p class="signup-title">Sign up to get started</p>
       <div class="form-row">
-        <input class="form-input" type="tel" id="phone" placeholder="Your phone number (e.g. +12125551234)" />
-        <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
-      </div>
+  <span style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; color: #ffffff; white-space: nowrap; display: flex; align-items: center;">Phone Number</span>
+  <input class="form-input" type="tel" id="phone" placeholder="e.g. +12125551234 or (212)555-1234" />
+  <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
+</div>
 
       <div class="checkbox-row">
         <input type="checkbox" id="terms" onchange="toggleSubmit()" />
         <label class="checkbox-label" for="terms">
-          I agree to the <a href="/api/terms">Terms of Service</a> and <a href="/api/privacy">Privacy Policy</a>.
+          <strong style="font-weight:300;">Required:</strong> I agree to the <a href="/api/terms">Terms of Service</a> and <a href="/api/privacy">Privacy Policy</a>.
         </label>
       </div>
 
       <div class="checkbox-row">
         <input type="checkbox" id="consent" />
         <label class="checkbox-label" for="consent">
-        <strong style="color:#ffffff;">Optional:</strong> I would like to receive automated weather forecast text messages from Studio Emily Weil LLC (Red Sky).
+          <strong style="font-weight:300;">Optional:</strong> I would like to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
         </label>
       </div>
 
@@ -174,7 +175,7 @@ const html = `
     </section>
 
     <footer>
-    <p>&copy; 2026 Studio Emily Weil LLC (Red Sky) &mdash; Reply STOP to unsubscribe &mdash; Msg &amp; data rates may apply</p>
+      <p>&copy; 2026 Red Sky, a service of Studio Emily Weil LLC &mdash; Reply STOP to unsubscribe &mdash; Msg &amp; data rates may apply</p>
       <p>SMS consent is not a condition of service. <a href="/api/privacy">Privacy Policy</a> &mdash; <a href="/api/terms">Terms</a></p>
     </footer>
   </div>
@@ -210,7 +211,7 @@ const html = `
         if (res.ok) {
           if (data.message === 'subscribed') {
             msg.className = 'form-message success';
-            msg.textContent = 'You are subscribed! Text any city to +1 989 357 8490 to get your first forecast.';
+            msg.textContent = 'You are subscribed! Text any city name or zip code to +1 989 357 8490 to get your forecast.';
           } else {
             msg.className = 'form-message success';
             msg.textContent = 'You are registered. Check the SMS opt-in box and resubmit to receive weather forecasts by text.';
