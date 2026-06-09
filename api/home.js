@@ -29,9 +29,9 @@ const html = `
     .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; font-weight: 300; }
     .nav-links a:hover { color: #ffffff; }
     .hero { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem 1rem 3rem; max-width: 900px; }
-    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
+    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff !important; margin-bottom: 2rem; font-weight: 300; }
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
-    .hero-sub { font-size: 0.95rem; line-height: 1.8; color: #ffffff; max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
+    .hero-sub { font-size: 0.95rem; line-height: 1.8; color: #ffffff !important; max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
     .signup-section { border-top: 0.5px solid var(--white-faint); padding: 2.5rem 3rem; max-width: 600px; }
     .signup-title { font-size: 0.85rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .form-row { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
@@ -98,7 +98,7 @@ const html = `
       <p class="signup-title">Sign up to get started</p>
       <div class="form-row">
       <span style="font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; color: #ffffff; white-space: nowrap; display: flex; align-items: center;">Phone number</span>
-      <input class="form-input" type="tel" id="phone" placeholder="e.g. +12125551234 or (212)555-1234" style="min-width: 280px;" />
+      <input class="form-input" type="tel" id="phone" placeholder="format: +12125551234 or (212)555-1234" style="min-width: 320px; width: 100%;" />
   <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
 </div>
 
