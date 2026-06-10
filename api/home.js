@@ -14,7 +14,7 @@ const html = `
       --white-dim: rgba(255,255,255,0.65);
       --white-faint: rgba(255,255,255,0.25);
       --black: #0a0a0a;
-      --overlay: rgba(8,12,20,0.01);
+      --overlay: rgba(8,12,20,0.48);
     }
     html { height: -webkit-fill-available; background: var(--black); }
     body { min-height: 100vh; min-height: -webkit-fill-available; color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
@@ -26,12 +26,12 @@ const html = `
     nav { padding: 2rem 3rem; border-bottom: 0.5px solid var(--white-faint); display: flex; align-items: center; }
     .nav-logo { font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: 1.1rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ffffff; }
     .nav-links { margin-left: auto; display: flex; gap: 2rem; }
-    .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; font-weight: 300; }
+    .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; text-decoration: none; font-weight: 300; }
     .nav-links a:hover { color: #ffffff; }
     .hero { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem 1rem 3rem; max-width: 900px; }
-    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 2rem; font-weight: 300; }
+    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
-    .hero-sub { font-size: 0.95rem; line-height: 1.8; color: var(--white-dim); max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
+    .hero-sub { font-size: 0.95rem; line-height: 1.8; color: #ffffff; max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
     .signup-section { border-top: 0.5px solid var(--white-faint); padding: 2.5rem 3rem; max-width: 600px; }
     .signup-title { font-size: 0.85rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .form-row { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
@@ -61,13 +61,13 @@ const html = `
     .form-message.error { color: #ffffff; background: #fc8d9a; display: block; }
     .how-section { border-top: 0.5px solid var(--white-faint); padding: 5rem 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
     .how-item { display: flex; flex-direction: column; gap: 1rem; }
-    .how-num { font-size: 2rem; font-weight: 300; color: var(--white-dim); line-height: 1; }
+    .how-num { font-size: 2rem; font-weight: 300; color: #ffffff; line-height: 1; }
     .how-title { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: #ffffff; font-weight: 400; }
-    .how-desc { font-size: 0.85rem; line-height: 1.75; color: var(--white-dim); letter-spacing: 0.01em; font-weight: 300; }
+    .how-desc { font-size: 0.85rem; line-height: 1.75; color: #ffffff; letter-spacing: 0.01em; font-weight: 300; }
     footer { border-top: 0.5px solid var(--white-faint); padding: 2rem 3rem; }
-    footer p { font-size: 0.7rem; letter-spacing: 0.1em; color: var(--white-faint); text-transform: uppercase; font-weight: 300; }
+    footer p { font-size: 0.7rem; letter-spacing: 0.1em; color: #ffffff; text-transform: uppercase; font-weight: 300; }
     footer p + p { margin-top: 0.5rem; }
-    footer a { color: rgba(255,255,255,0.45); text-decoration: none; }
+    footer a { color: #ffffff; text-decoration: none; }
     @media (max-width: 768px) {
       nav { padding: 1.5rem; }
       .hero { padding: 3rem 1.5rem 1rem 1.5rem; }
@@ -100,10 +100,6 @@ const html = `
 
     <section class="signup-section">
       <p class="signup-title">Sign up</p>
-      <div class="form-row">
-        <input class="form-input" type="tel" id="phone" placeholder="Your phone number (format: +12125551234)" />
-        <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
-      </div>
 
       <div class="checkbox-row">
         <input type="checkbox" id="terms" onchange="toggleSubmit()" />
@@ -115,8 +111,14 @@ const html = `
       <div class="checkbox-row">
         <input type="checkbox" id="consent" />
         <label class="checkbox-label" for="consent">
-          <strong style="font-weight:300;">Optional:</strong> I would like to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+          <strong style="font-weight:300;">Optional:</strong> I would like to receive weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
         </label>
+      </div>
+
+      <div class="form-row">
+        <span style="font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:300; color:#ffffff; white-space:nowrap; display:flex; align-items:center;">Phone number</span>
+        <input class="form-input" type="tel" id="phone" placeholder="Format: +12125551234 or (212)555-1234" style="min-width:280px; width:100%;" />
+        <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
       </div>
 
       <div class="form-message" id="formMessage"></div>
