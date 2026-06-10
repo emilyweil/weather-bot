@@ -19,7 +19,7 @@ const html = `
     html { height: -webkit-fill-available; background: var(--black); }
     body { min-height: 100vh; min-height: -webkit-fill-available; color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
     .bg-wrap { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; z-index: 0; overflow: hidden; }
-    .bg-image { position: absolute; top: 0; left: 0; height: 100%; width: auto; min-width: 200%; object-fit: cover; animation: pan 240s linear infinite; filter: saturate(0.85) brightness(0.72); will-change: transform; backface-visibility: hidden; }
+    .bg-image { position: absolute; top: 0; left: 0; height: 100%; width: auto; min-width: 200%; object-fit: cover; animation: pan 600s linear infinite; filter: saturate(0.85) brightness(0.72); will-change: transform; backface-visibility: hidden; }
     @keyframes pan { 0% { transform: translateX(0); } 50% { transform: translateX(-33%); } 100% { transform: translateX(0); } }
     .overlay { position: absolute; inset: 0; background: var(--overlay); }
     .page { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
@@ -52,9 +52,9 @@ const html = `
     .policy-text { font-size: 0.85rem; line-height: 1.8; color: #ffffff; font-weight: 300; }
     .policy-text h3 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ffffff; font-weight: 400; margin: 1.25rem 0 0.5rem; }
     .policy-text p { margin-bottom: 0.75rem; color: rgba(255,255,255,0.85); }
-    .form-message { font-size: 0.85rem; font-weight: 300; padding: 0.75rem 0; display: none; }
-    .form-message.success { color: #ffe033; display: block; }
-    .form-message.error { color: #ff3333; display: block; }
+    .form-message { font-size: 0.85rem; font-weight: 300; padding: 0.75rem 1rem; display: none; border-radius: 2px; }
+.form-message.success { color: #ffffff; background: #1a56db; display: block; }
+.form-message.error { color: #ffffff; background: #cc0000; display: block; }
     .how-section { border-top: 0.5px solid var(--white-faint); padding: 5rem 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
     .how-item { display: flex; flex-direction: column; gap: 1rem; }
     .how-num { font-size: 2rem; font-weight: 300; color: var(--white-dim); line-height: 1; }
