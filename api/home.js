@@ -45,17 +45,12 @@ const html = `
     .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 16px; height: 16px; accent-color: #ffffff; cursor: pointer; }
     .checkbox-label { font-size: 0.85rem; line-height: 1.65; color: #ffffff; font-weight: 300; }
     .checkbox-label a { color: #ffffff; text-decoration: underline; }
-    .policy-block { margin-top: 1.5rem; border-top: 0.5px solid var(--white-faint); padding-top: 1.5rem; }
-    .policy-block details { margin-bottom: 1rem; }
-    .policy-block summary { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; cursor: pointer; font-weight: 300; margin-bottom: 0.75rem; list-style: none; -webkit-appearance: none; appearance: none; }
-    .policy-block summary::-webkit-details-marker { display: none; }
-    .policy-block summary::marker { display: none; }
-    .policy-block details > summary::before { content: '▶  '; font-size: 0.65rem; }
-    .policy-block details[open] > summary::before { content: '▼  '; font-size: 0.65rem; }
-    .policy-block summary:hover { color: var(--white-dim); }
-    .policy-text { font-size: 0.85rem; line-height: 1.8; color: #ffffff; font-weight: 300; }
-    .policy-text h3 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ffffff; font-weight: 400; margin: 1.25rem 0 0.5rem; }
-    .policy-text p { margin-bottom: 0.75rem; color: rgba(255,255,255,0.85); }
+    .policy-block summary { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; cursor: pointer; font-weight: 300; margin-bottom: 0.75rem; list-style: none; display: block; -webkit-appearance: none; appearance: none; background: transparent; padding: 0; border: none; outline: none; }
+.policy-block summary::-webkit-details-marker { display: none; content: ''; width: 0; }
+.policy-block summary::marker { display: none; content: ''; }
+.policy-block details > summary::before { content: '▶  '; font-size: 0.65rem; display: inline; background: transparent; }
+.policy-block details[open] > summary::before { content: '▼  '; font-size: 0.65rem; display: inline; background: transparent; }
+.policy-block summary:hover { color: var(--white-dim); }
     .form-message { font-size: 0.85rem; font-weight: 300; padding: 0.75rem 1rem; display: none; border-radius: 2px; }
     .form-message.success { color: #ffffff; background: #7a9fcf; display: block; }
     .form-message.error { color: #ffffff; background: #fc8d9a; display: block; }
