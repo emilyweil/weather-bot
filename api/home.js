@@ -46,7 +46,9 @@ const html = `
     .checkbox-label { font-size: 0.85rem; line-height: 1.65; color: #ffffff; font-weight: 300; }
     .checkbox-label a { color: #ffffff; text-decoration: underline; }
     .accordion { margin-bottom: 1rem; }
-    .accordion-btn { background: transparent; border: none; padding: 0; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; font-weight: 300; display: flex; align-items: center; gap: 0.5rem; -webkit-tap-highlight-color: transparent; outline: none; }
+    .accordion-btn { background: none !important; background-color: transparent !important; -webkit-appearance: none; -moz-appearance: none; appearance: none; border: none; padding: 0; margin: 0; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; font-weight: 300; display: flex; align-items: center; gap: 0.5rem; -webkit-tap-highlight-color: transparent; outline: none; box-shadow: none; border-radius: 0; }
+    .accordion-btn:focus { outline: none; background: none !important; box-shadow: none; }
+    .accordion-btn:active { background: none !important; }
     .accordion-btn:hover { color: var(--white-dim); }
     .accordion-arrow { font-size: 0.65rem; display: inline-block; }
     .accordion-body { margin-top: 0.75rem; margin-bottom: 0.5rem; }
