@@ -14,47 +14,51 @@ const html = `
       --white-dim: rgba(255,255,255,0.65);
       --white-faint: rgba(255,255,255,0.25);
       --black: #0a0a0a;
-      --overlay: rgba(8,12,20,0.01);
+      --overlay: rgba(8,12,20,0.48);
     }
     html { height: -webkit-fill-available; background: var(--black); }
     body { min-height: 100vh; min-height: -webkit-fill-available; color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
     .bg-wrap { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; z-index: 0; overflow: hidden; }
-    .bg-image { position: absolute; top: 0; left: 0; height: 100%; width: auto; min-width: 200%; object-fit: cover; animation: pan 600s linear infinite; filter: saturate(0.85) brightness(0.72); will-change: transform; backface-visibility: hidden; }
-    @keyframes pan { 0% { transform: translateX(0); } 50% { transform: translateX(-33%); } 100% { transform: translateX(0); } }
+    .bg-image { position: absolute; top: 0; left: 0; height: 100%; width: auto; min-width: 300%; object-fit: cover; animation: pan 600s linear infinite; filter: saturate(0.85) brightness(0.72); will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateZ(0); -webkit-transform: translateZ(0); }
+    @keyframes pan { 0% { transform: translateX(0); } 50% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
     .overlay { position: absolute; inset: 0; background: var(--overlay); }
     .page { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
     nav { padding: 2rem 3rem; border-bottom: 0.5px solid var(--white-faint); display: flex; align-items: center; }
-    .nav-logo { font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: 1.1rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ffffff !important; }
+    .nav-logo { font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: 1.1rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ffffff; }
     .nav-links { margin-left: auto; display: flex; gap: 2rem; }
     .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; font-weight: 300; }
     .nav-links a:hover { color: #ffffff; }
     .hero { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem 1rem 3rem; max-width: 900px; }
-    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff !important; margin-bottom: 2rem; font-weight: 300; }
+    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 2rem; font-weight: 300; }
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
-    .hero-sub { font-size: 0.95rem; line-height: 1.8; color: #ffffff !important; max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
+    .hero-sub { font-size: 0.95rem; line-height: 1.8; color: var(--white-dim); max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
     .signup-section { border-top: 0.5px solid var(--white-faint); padding: 2.5rem 3rem; max-width: 600px; }
     .signup-title { font-size: 0.85rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .form-row { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
     .form-input { flex: 1; background: rgba(255,255,255,0.08); border: 0.5px solid var(--white-faint); color: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 300; padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s ease; border-radius: 0; }
     .form-input::placeholder { color: rgba(255,255,255,0.55); }
     .form-input:focus { border-color: var(--white-dim); }
-    .form-submit { background: #ffffff; color: #0a0a0a; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 1.75rem; border: none; cursor: pointer; transition: opacity 0.3s ease; white-space: nowrap; border-radius: 0; box-shadow: 0 0 0 2px rgba(255,255,255,0.8); }
-    .form-submit:hover { opacity: 0.9; }
-    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-submit { background: #ffffff; color: #0a0a0a; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 1.75rem; border: none; cursor: pointer; transition: opacity 0.3s ease; white-space: nowrap; border-radius: 0; }
+    .form-submit:hover { opacity: 0.85; }
+    .form-submit:disabled { opacity: 0.4; cursor: not-allowed; }
     .checkbox-row { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
     .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 16px; height: 16px; accent-color: #ffffff; cursor: pointer; }
     .checkbox-label { font-size: 0.85rem; line-height: 1.65; color: #ffffff; font-weight: 300; }
     .checkbox-label a { color: #ffffff; text-decoration: underline; }
     .policy-block { margin-top: 1.5rem; border-top: 0.5px solid var(--white-faint); padding-top: 1.5rem; }
     .policy-block details { margin-bottom: 1rem; }
-    .policy-block summary { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; cursor: pointer; font-weight: 300; margin-bottom: 0.75rem; }
+    .policy-block summary { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; cursor: pointer; font-weight: 300; margin-bottom: 0.75rem; list-style: none; -webkit-appearance: none; appearance: none; }
+    .policy-block summary::-webkit-details-marker { display: none; }
+    .policy-block summary::marker { display: none; }
+    .policy-block details > summary::before { content: '▶  '; font-size: 0.65rem; }
+    .policy-block details[open] > summary::before { content: '▼  '; font-size: 0.65rem; }
     .policy-block summary:hover { color: var(--white-dim); }
     .policy-text { font-size: 0.85rem; line-height: 1.8; color: #ffffff; font-weight: 300; }
     .policy-text h3 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ffffff; font-weight: 400; margin: 1.25rem 0 0.5rem; }
     .policy-text p { margin-bottom: 0.75rem; color: rgba(255,255,255,0.85); }
     .form-message { font-size: 0.85rem; font-weight: 300; padding: 0.75rem 1rem; display: none; border-radius: 2px; }
-.form-message.success { color: #ffffff; background: #1a56db; display: block; }
-.form-message.error { color: #ffffff; background: #cc0000; display: block; }
+    .form-message.success { color: #ffffff; background: #7a9fcf; display: block; }
+    .form-message.error { color: #ffffff; background: #fc8d9a; display: block; }
     .how-section { border-top: 0.5px solid var(--white-faint); padding: 5rem 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
     .how-item { display: flex; flex-direction: column; gap: 1rem; }
     .how-num { font-size: 2rem; font-weight: 300; color: var(--white-dim); line-height: 1; }
@@ -90,34 +94,32 @@ const html = `
 
     <section class="hero">
       <p class="hero-eyebrow">Instant weather &mdash; no app required</p>
-      <h1>The weather,<br />by text.</h1>
+      <h1>How's the weather?<br />Text to find out.</h1>
       <p class="hero-sub">Sign up below and get a real forecast sent to your phone in seconds. Just text any city or zip code to get started.</p>
     </section>
 
     <section class="signup-section">
-    <p class="signup-title">Sign up to get started</p>
+      <p class="signup-title">Sign up</p>
+      <div class="form-row">
+        <input class="form-input" type="tel" id="phone" placeholder="Your phone number (format: +12125551234)" />
+        <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
+      </div>
 
-    <div class="checkbox-row">
-      <input type="checkbox" id="terms" onchange="toggleSubmit()" />
-      <label class="checkbox-label" for="terms">
-        <strong style="font-weight:300;">Required:</strong> I agree to the <a href="/api/terms">Terms of Service</a> and <a href="/api/privacy">Privacy Policy</a>.
-      </label>
-    </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="terms" onchange="toggleSubmit()" />
+        <label class="checkbox-label" for="terms">
+          <strong style="font-weight:300;">Required:</strong> I agree to the <a href="/api/terms">Terms of Service</a> and <a href="/api/privacy">Privacy Policy</a>.
+        </label>
+      </div>
 
-    <div class="checkbox-row">
-      <input type="checkbox" id="consent" />
-      <label class="checkbox-label" for="consent">
-        <strong style="font-weight:300;">Optional:</strong> I would like to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
-      </label>
-    </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="consent" />
+        <label class="checkbox-label" for="consent">
+          <strong style="font-weight:300;">Optional:</strong> I would like to receive automated weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+        </label>
+      </div>
 
-    <div class="form-row">
-      <span style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 300; color: #ffffff; white-space: nowrap; display: flex; align-items: center;">Phone number</span>
-      <input class="form-input" type="tel" id="phone" placeholder="Format: +12125551234 or (212)555-1234" style="min-width: 320px; width: 100%;" />
-      <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
-    </div>
-
-    <div class="form-message" id="formMessage"></div>
+      <div class="form-message" id="formMessage"></div>
 
       <div class="policy-block">
         <details>
