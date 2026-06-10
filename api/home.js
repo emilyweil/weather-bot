@@ -14,7 +14,7 @@ const html = `
       --white-dim: rgba(255,255,255,0.65);
       --white-faint: rgba(255,255,255,0.25);
       --black: #0a0a0a;
-      --overlay: rgba(8,12,20,0.20);
+      --overlay: rgba(8,12,20,0.10);
     }
     html { height: -webkit-fill-available; background: var(--black); }
     body { min-height: 100vh; min-height: -webkit-fill-available; color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
