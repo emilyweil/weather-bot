@@ -245,7 +245,7 @@ const html = `
       const arrow = document.getElementById('arrow-' + id);
       const isOpen = body.style.display !== 'none';
       body.style.display = isOpen ? 'none' : 'block';
-      arrow.innerHTML = isOpen ? '&#x25BC;&#xFE0E;' : '&#x25B6;&#xFE0E;';
+      arrow.innerHTML = isOpen ? '&#x25B6;&#xFE0E;' : '&#x25BC;&#xFE0E;';
     }
   </script>
 </body>
