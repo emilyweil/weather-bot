@@ -50,8 +50,7 @@ const html = `
     .accordion-btn:focus { outline: none; background: none !important; box-shadow: none; }
     .accordion-btn:active { background: none !important; }
     .accordion-btn:hover { color: var(--white-dim); }
-    .accordion-arrow { font-size: 0.65rem; display: inline-block; transform: rotate(-90deg); transition: transform 0.2s ease; }
-    .accordion-arrow.open { transform: rotate(0deg); }
+    .accordion-arrow { font-size: 0.65rem; display: inline-block; }
     .accordion-body { margin-top: 0.75rem; margin-bottom: 0.5rem; }
     .form-message { font-size: 0.85rem; font-weight: 300; padding: 0.75rem 1rem; display: none; border-radius: 2px; }
     .form-message.success { color: #ffffff; background: #7a9fcf; display: block; }
@@ -123,7 +122,7 @@ const html = `
       <div class="policy-block">
         <div class="accordion">
           <button class="accordion-btn" onclick="toggleAccordion('privacy')">
-          <span class="accordion-arrow" id="arrow-privacy">&#x25B6;&#xFE0E;</span> Privacy Policy
+          <span class="accordion-arrow" id="arrow-privacy">&#x25BC;&#xFE0E;</span>Privacy Policy
           </button>
           <div class="accordion-body" id="privacy" style="display:none;">
             <div class="policy-text">
@@ -144,7 +143,7 @@ const html = `
         </div>
         <div class="accordion">
           <button class="accordion-btn" onclick="toggleAccordion('terms')">
-          <span class="accordion-arrow" id="arrow-terms">&#x25B6;&#xFE0E;</span> Terms and Conditions
+          <span class="accordion-arrow" id="arrow-terms">&#x25BC;&#xFE0E;</span> Terms and Conditions
           </button>
           <div class="accordion-body" id="terms-body" style="display:none;">
             <div class="policy-text">
@@ -246,7 +245,7 @@ const html = `
       const arrow = document.getElementById('arrow-' + id);
       const isOpen = body.style.display !== 'none';
       body.style.display = isOpen ? 'none' : 'block';
-      arrow.innerHTML = isOpen ? '&#x25B6;&#xFE0E;' : '&#x25BC;&#xFE0E;';
+      arrow.innerHTML = isOpen ? '&#x25BC;&#xFE0E;' : '&#x25B6;&#xFE0E;';
     }
   </script>
 </body>
