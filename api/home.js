@@ -122,7 +122,7 @@ const html = `
       <div class="policy-block">
         <div class="accordion">
           <button class="accordion-btn" onclick="toggleAccordion('privacy')">
-          <span class="accordion-arrow" id="arrow-privacy">&#x25BC;&#xFE0E;</span>Privacy Policy
+          <span class="accordion-arrow" id="arrow-privacy">&#x25B6;&#xFE0E;</span>Privacy Policy
           </button>
           <div class="accordion-body" id="privacy" style="display:none;">
             <div class="policy-text">
@@ -143,7 +143,7 @@ const html = `
         </div>
         <div class="accordion">
           <button class="accordion-btn" onclick="toggleAccordion('terms')">
-          <span class="accordion-arrow" id="arrow-terms">&#x25BC;&#xFE0E;</span> Terms and Conditions
+          <span class="accordion-arrow" id="arrow-terms">&#x25B6;&#xFE0E;</span> Terms and Conditions
           </button>
           <div class="accordion-body" id="terms-body" style="display:none;">
             <div class="policy-text">
