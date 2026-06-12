@@ -65,7 +65,7 @@ const html = `
     .how-title { font-size: 1rem; letter-spacing: 0.18em; text-transform: uppercase; color: #ffffff; font-weight: 400; }
     .how-desc { font-size: 1.15rem; line-height: 1.75; color: #ffffff; letter-spacing: 0.01em; font-weight: 300; }
     footer { border-top: 0.5px solid var(--white-faint); padding: 2rem 3rem; }
-    footer p { font-size: 1rem; letter-spacing: 0.08em; color: #ffffff; text-transform: uppercase; font-weight: 300; }
+    footer p { font-size: 0.7rem; letter-spacing: 0.08em; color: #ffffff; text-transform: uppercase; font-weight: 300; }
     footer p + p { margin-top: 0.5rem; }
     footer a { color: #ffffff; text-decoration: none; }
     @media (max-width: 768px) {
