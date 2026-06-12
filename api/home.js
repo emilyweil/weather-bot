@@ -47,7 +47,7 @@ const html = `
     .checkbox-label a { color: #ffffff; text-decoration: underline; }
     .policy-block { margin-top: 1.5rem; border-top: 0.5px solid var(--white-faint); padding-top: 1.5rem; }
     .accordion { margin-bottom: 1rem; }
-    .accordion-btn { background: none !important; background-color: transparent !important; -webkit-appearance: none; -moz-appearance: none; appearance: none; border: none; padding: 0; margin: 0; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; font-weight: 300; display: flex; align-items: center; gap: 0.5rem; -webkit-tap-highlight-color: transparent; outline: none; box-shadow: none; border-radius: 0; }
+    .accordion-btn { background: none !important; background-color: transparent !important; -webkit-appearance: none; -moz-appearance: none; appearance: none; border: none; padding: 0; margin: 0; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 1.15rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; font-weight: 300; display: flex; align-items: center; gap: 0.5rem; -webkit-tap-highlight-color: transparent; outline: none; box-shadow: none; border-radius: 0; }
     .accordion-btn:focus { outline: none; background: none !important; box-shadow: none; }
     .accordion-btn:active { background: none !important; }
     .accordion-btn:hover { color: #ffffff; }
@@ -116,7 +116,7 @@ const html = `
       </div>
 
       <div class="form-row">
-        <span style="font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:300; color:#ffffff; white-space:nowrap; display:flex; align-items:center;">Phone number</span>
+        <span style="font-family:'DM Sans',sans-serif; font-size:1.15rem; font-weight:300; color:#ffffff; white-space:nowrap; display:flex; align-items:center;">Phone number</span>
         <input class="form-input" type="tel" id="phone" placeholder="Format: +12125551234 or (212)555-1234" style="min-width:280px; width:100%;" />
         <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
       </div>
