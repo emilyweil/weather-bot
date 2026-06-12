@@ -14,7 +14,7 @@ const html = `
       --white-dim: rgba(255,255,255,0.65);
       --white-faint: rgba(255,255,255,0.25);
       --black: #0a0a0a;
-      --overlay: rgba(8,12,20,0.05);
+      --overlay: rgba(8,12,20,0.48);
     }
     html { height: -webkit-fill-available; background: var(--black); }
     body { min-height: 100vh; min-height: -webkit-fill-available; color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
@@ -24,44 +24,48 @@ const html = `
     .overlay { position: absolute; inset: 0; background: var(--overlay); }
     .page { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
     nav { padding: 2rem 3rem; border-bottom: 0.5px solid var(--white-faint); display: flex; align-items: center; }
-    .nav-logo { font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: 1.1rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ffffff; }
+    .nav-logo { font-family: 'DM Sans', sans-serif; font-weight: 200; font-size: 1.2rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ffffff; }
     .nav-links { margin-left: auto; display: flex; gap: 2rem; }
-    .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; text-decoration: none; font-weight: 300; }
+    .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; text-decoration: none; font-weight: 300; }
     .nav-links a:hover { color: #ffffff; }
     .hero { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem 1rem 3rem; max-width: 900px; }
-    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
+    .hero-eyebrow { font-size: 0.9rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
-    .hero-sub { font-size: 0.95rem; line-height: 1.8; color: #ffffff; max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
+    .hero-sub { font-size: 1.05rem; line-height: 1.8; color: #ffffff; max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
     .signup-section { border-top: 0.5px solid var(--white-faint); padding: 2.5rem 3rem; max-width: 600px; }
-    .signup-title { font-size: 0.85rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
+    .signup-title { font-size: 1rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .form-row { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
-    .form-input { flex: 1; background: rgba(255,255,255,0.08); border: 0.5px solid var(--white-faint); color: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 300; padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s ease; border-radius: 0; }
-    .form-input::placeholder { color: rgba(255,255,255,0.55); }
-    .form-input:focus { border-color: var(--white-dim); }
-    .form-submit { background: #ffffff; color: #0a0a0a; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 1.75rem; border: none; cursor: pointer; transition: opacity 0.3s ease; white-space: nowrap; border-radius: 0; }
-    .form-submit:hover { opacity: 0.85; }
-    .form-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+    .form-input { flex: 1; background: rgba(255,255,255,0.08); border: 0.5px solid var(--white-faint); color: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 300; padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s ease; border-radius: 0; }
+    .form-input::placeholder { color: rgba(255,255,255,0.7); }
+    .form-input:focus { border-color: #ffffff; }
+    .form-submit { background: rgba(255,255,255,0.75); color: #000000; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.85rem 2.5rem; border: none; cursor: pointer; transition: background 0.3s ease; white-space: nowrap; border-radius: 0; min-width: 120px; }
+    .form-submit:hover { background: rgba(255,255,255,0.9); }
+    .form-submit:disabled { background: rgba(255,255,255,0.25); color: rgba(0,0,0,0.4); cursor: not-allowed; }
     .checkbox-row { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
-    .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 16px; height: 16px; accent-color: #ffffff; cursor: pointer; }
-    .checkbox-label { font-size: 0.85rem; line-height: 1.65; color: #ffffff; font-weight: 300; }
+    .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 18px; height: 18px; accent-color: #ffffff; cursor: pointer; }
+    .checkbox-label { font-size: 1rem; line-height: 1.7; color: #ffffff; font-weight: 300; }
     .checkbox-label a { color: #ffffff; text-decoration: underline; }
+    .policy-block { margin-top: 1.5rem; border-top: 0.5px solid var(--white-faint); padding-top: 1.5rem; }
     .accordion { margin-bottom: 1rem; }
-    .accordion-btn { background: none !important; background-color: transparent !important; -webkit-appearance: none; -moz-appearance: none; appearance: none; border: none; padding: 0; margin: 0; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; font-weight: 300; display: flex; align-items: center; gap: 0.5rem; -webkit-tap-highlight-color: transparent; outline: none; box-shadow: none; border-radius: 0; }
+    .accordion-btn { background: none !important; background-color: transparent !important; -webkit-appearance: none; -moz-appearance: none; appearance: none; border: none; padding: 0; margin: 0; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; font-weight: 300; display: flex; align-items: center; gap: 0.5rem; -webkit-tap-highlight-color: transparent; outline: none; box-shadow: none; border-radius: 0; }
     .accordion-btn:focus { outline: none; background: none !important; box-shadow: none; }
     .accordion-btn:active { background: none !important; }
-    .accordion-btn:hover { color: var(--white-dim); }
-    .accordion-arrow { font-size: 0.65rem; display: inline-block; }
+    .accordion-btn:hover { color: #ffffff; }
+    .accordion-arrow { font-size: 0.75rem; display: inline-block; }
     .accordion-body { margin-top: 0.75rem; margin-bottom: 0.5rem; }
-    .form-message { font-size: 0.85rem; font-weight: 300; padding: 0.75rem 1rem; display: none; border-radius: 2px; }
+    .policy-text { font-size: 1rem; line-height: 1.8; color: #ffffff; font-weight: 300; }
+    .policy-text h3 { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ffffff; font-weight: 400; margin: 1.25rem 0 0.5rem; }
+    .policy-text p { margin-bottom: 0.75rem; color: #ffffff; }
+    .form-message { font-size: 1rem; font-weight: 300; padding: 0.75rem 1rem; display: none; border-radius: 2px; }
     .form-message.success { color: #ffffff; background: #7a9fcf; display: block; }
     .form-message.error { color: #ffffff; background: #fc8d9a; display: block; }
     .how-section { border-top: 0.5px solid var(--white-faint); padding: 5rem 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
     .how-item { display: flex; flex-direction: column; gap: 1rem; }
     .how-num { font-size: 2rem; font-weight: 300; color: #ffffff; line-height: 1; }
-    .how-title { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: #ffffff; font-weight: 400; }
-    .how-desc { font-size: 0.85rem; line-height: 1.75; color: #ffffff; letter-spacing: 0.01em; font-weight: 300; }
+    .how-title { font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; color: #ffffff; font-weight: 400; }
+    .how-desc { font-size: 1rem; line-height: 1.75; color: #ffffff; letter-spacing: 0.01em; font-weight: 300; }
     footer { border-top: 0.5px solid var(--white-faint); padding: 2rem 3rem; }
-    footer p { font-size: 0.7rem; letter-spacing: 0.1em; color: #ffffff; text-transform: uppercase; font-weight: 300; }
+    footer p { font-size: 0.85rem; letter-spacing: 0.08em; color: #ffffff; text-transform: uppercase; font-weight: 300; }
     footer p + p { margin-top: 0.5rem; }
     footer a { color: #ffffff; text-decoration: none; }
     @media (max-width: 768px) {
@@ -120,48 +124,40 @@ const html = `
       <div class="form-message" id="formMessage"></div>
 
       <div class="policy-block">
-        <div class="accordion">
-          <button class="accordion-btn" onclick="toggleAccordion('privacy')">
-          <span class="accordion-arrow" id="arrow-privacy">&#x25B6;&#xFE0E;</span>Privacy Policy
-          </button>
-          <div class="accordion-body" id="privacy" style="display:none;">
-            <div class="policy-text">
-              <p>Last updated: May 2026</p>
-              <p>Red Sky is a service of Studio Emily Weil LLC.</p>
-              <h3>What We Collect</h3>
-              <p>When you sign up or text this service, we collect only your phone number and the location queries you send, solely to provide you with weather forecasts.</p>
-              <h3>How We Use Your Data</h3>
-              <p>Your phone number and location queries are used only to return weather forecast responses. We do not store, sell, or share your data or mobile number with any third parties.</p>
-              <h3>Message Frequency</h3>
-              <p>You will receive one message per request you send. This service only sends messages in direct response to your inbound texts.</p>
-              <h3>Message and Data Rates</h3>
-              <p>Message and data rates may apply. Please check with your mobile carrier for details.</p>
-              <h3>Opt Out</h3>
-              <p>Reply STOP to any message to unsubscribe at any time. Reply START to resubscribe. Reply HELP for assistance.</p>
-            </div>
+        <details>
+          <summary>Privacy Policy</summary>
+          <div class="policy-text">
+            <p>Last updated: May 2026</p>
+            <p>Red Sky is a service of Studio Emily Weil LLC.</p>
+            <h3>What We Collect</h3>
+            <p>When you sign up or text this service, we collect only your phone number and the location queries you send, solely to provide you with weather forecasts.</p>
+            <h3>How We Use Your Data</h3>
+            <p>Your phone number and location queries are used only to return weather forecast responses. We do not store, sell, or share your data or mobile number with any third parties.</p>
+            <h3>Message Frequency</h3>
+            <p>You will receive one message per request you send. This service only sends messages in direct response to your inbound texts.</p>
+            <h3>Message and Data Rates</h3>
+            <p>Message and data rates may apply. Please check with your mobile carrier for details.</p>
+            <h3>Opt Out</h3>
+            <p>Reply STOP to any message to unsubscribe at any time. Reply START to resubscribe. Reply HELP for assistance.</p>
           </div>
-        </div>
-        <div class="accordion">
-          <button class="accordion-btn" onclick="toggleAccordion('terms')">
-          <span class="accordion-arrow" id="arrow-terms">&#x25B6;&#xFE0E;</span> Terms and Conditions
-          </button>
-          <div class="accordion-body" id="terms-body" style="display:none;">
-            <div class="policy-text">
-              <p>Last updated: May 2026</p>
-              <p>Red Sky is a service of Studio Emily Weil LLC.</p>
-              <h3>Service Description</h3>
-              <p>Red Sky provides automated weather forecasts via SMS in response to user-initiated text messages. To use the service, text a city name or zip code to +1 989 357 8490.</p>
-              <h3>Usage</h3>
-              <p>This service is provided for personal, non-commercial use. By signing up you agree to receive weather forecast responses only if you have opted in to SMS messages.</p>
-              <h3>Opt Out</h3>
-              <p>Reply STOP at any time to stop receiving messages. Reply START to resume. Reply HELP for assistance. Message and data rates may apply.</p>
-              <h3>SMS Consent</h3>
-              <p>SMS consent is not a condition of service. You may create an account without opting in to receive text messages.</p>
-              <h3>Disclaimer</h3>
-              <p>Weather forecasts are provided by OpenWeatherMap for informational purposes only. We are not responsible for any decisions made based on the weather information provided.</p>
-            </div>
+        </details>
+        <details>
+          <summary>Terms and Conditions</summary>
+          <div class="policy-text">
+            <p>Last updated: May 2026</p>
+            <p>Red Sky is a service of Studio Emily Weil LLC.</p>
+            <h3>Service Description</h3>
+            <p>Red Sky provides automated weather forecasts via SMS in response to user-initiated text messages. To use the service, text a city name or zip code to +1 989 357 8490.</p>
+            <h3>Usage</h3>
+            <p>This service is provided for personal, non-commercial use. By signing up you agree to receive automated weather forecast responses only if you have opted in to SMS messages.</p>
+            <h3>Opt Out</h3>
+            <p>Reply STOP at any time to stop receiving messages. Reply START to resume. Reply HELP for assistance. Message and data rates may apply.</p>
+            <h3>SMS Consent</h3>
+            <p>SMS consent is not a condition of service. You may create an account without opting in to receive text messages.</p>
+            <h3>Disclaimer</h3>
+            <p>Weather forecasts are provided by OpenWeatherMap for informational purposes only. We are not responsible for any decisions made based on the weather information provided.</p>
           </div>
-        </div>
+        </details>
       </div>
     </section>
 
@@ -238,14 +234,6 @@ const html = `
         btn.disabled = false;
       }
       btn.textContent = 'Submit';
-    }
-
-    function toggleAccordion(id) {
-      const body = document.getElementById(id === 'privacy' ? 'privacy' : 'terms-body');
-      const arrow = document.getElementById('arrow-' + id);
-      const isOpen = body.style.display !== 'none';
-      body.style.display = isOpen ? 'none' : 'block';
-      arrow.innerHTML = isOpen ? '&#x25B6;&#xFE0E;' : '&#x25BC;&#xFE0E;';
     }
   </script>
 </body>
