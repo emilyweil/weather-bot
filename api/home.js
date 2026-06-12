@@ -29,11 +29,11 @@ const html = `
     .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; text-decoration: none; font-weight: 300; }
     .nav-links a:hover { color: #ffffff; }
     .hero { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem 1rem 3rem; max-width: 900px; }
-    .hero-eyebrow { font-size: 0.9rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
+    .hero-eyebrow { font-size: 1.1rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
-    .hero-sub { font-size: 1.05rem; line-height: 1.8; color: #ffffff; max-width: 400px; letter-spacing: 0.01em; font-weight: 300; }
+    .hero-sub { font-size: 1.2rem; line-height: 1.8; color: #ffffff; max-width: 500px; letter-spacing: 0.01em; font-weight: 300; }
     .signup-section { border-top: 0.5px solid var(--white-faint); padding: 2.5rem 3rem; max-width: 600px; }
-    .signup-title { font-size: 1rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
+    .signup-title { font-size: 1.2rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .form-row { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
     .form-input { flex: 1; background: rgba(255,255,255,0.08); border: 0.5px solid var(--white-faint); color: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 300; padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s ease; border-radius: 0; }
     .form-input::placeholder { color: rgba(255,255,255,0.7); }
@@ -43,7 +43,7 @@ const html = `
     .form-submit:disabled { background: rgba(255,255,255,0.25); color: rgba(0,0,0,0.4); cursor: not-allowed; }
     .checkbox-row { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
     .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 18px; height: 18px; accent-color: #ffffff; cursor: pointer; }
-    .checkbox-label { font-size: 1rem; line-height: 1.7; color: #ffffff; font-weight: 300; }
+    .checkbox-label { font-size: 1.15rem; line-height: 1.7; color: #ffffff; font-weight: 300; }
     .checkbox-label a { color: #ffffff; text-decoration: underline; }
     .policy-block { margin-top: 1.5rem; border-top: 0.5px solid var(--white-faint); padding-top: 1.5rem; }
     .accordion { margin-bottom: 1rem; }
@@ -62,10 +62,10 @@ const html = `
     .how-section { border-top: 0.5px solid var(--white-faint); padding: 5rem 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
     .how-item { display: flex; flex-direction: column; gap: 1rem; }
     .how-num { font-size: 2rem; font-weight: 300; color: #ffffff; line-height: 1; }
-    .how-title { font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; color: #ffffff; font-weight: 400; }
-    .how-desc { font-size: 1rem; line-height: 1.75; color: #ffffff; letter-spacing: 0.01em; font-weight: 300; }
+    .how-title { font-size: 1rem; letter-spacing: 0.18em; text-transform: uppercase; color: #ffffff; font-weight: 400; }
+    .how-desc { font-size: 1.15rem; line-height: 1.75; color: #ffffff; letter-spacing: 0.01em; font-weight: 300; }
     footer { border-top: 0.5px solid var(--white-faint); padding: 2rem 3rem; }
-    footer p { font-size: 0.85rem; letter-spacing: 0.08em; color: #ffffff; text-transform: uppercase; font-weight: 300; }
+    footer p { font-size: 1rem; letter-spacing: 0.08em; color: #ffffff; text-transform: uppercase; font-weight: 300; }
     footer p + p { margin-top: 0.5rem; }
     footer a { color: #ffffff; text-decoration: none; }
     @media (max-width: 768px) {
