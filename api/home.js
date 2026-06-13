@@ -256,7 +256,7 @@ const html = `
       const canvas = document.getElementById('murmuration');
       const ctx = canvas.getContext('2d');
       const NUM_BIRDS = 300;
-      const PERCEPTION = 80;
+      const PERCEPTION = 120;
       const MAX_SPEED = 2.2;
       const MIN_SPEED = 1.2;
       const MAX_FORCE = 0.04;
@@ -288,8 +288,8 @@ const html = `
 
       class Bird {
         constructor() {
-          this.x = flockX + (Math.random() - 0.5) * 200;
-          this.y = flockY + (Math.random() - 0.5) * 100;
+          this.x = flockX + (Math.random() - 0.5) * 400;
+          this.y = flockY + (Math.random() - 0.5) * 200;
           const angle = Math.random() * Math.PI * 2;
           const speed = MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
           this.vx = Math.cos(angle) * speed;
@@ -319,7 +319,7 @@ const html = `
             const d = Math.sqrt(dx * dx + dy * dy);
             if (d < PERCEPTION) {
               // Separation
-              if (d < 28) {
+              if (d < 55) {
                 sepX -= dx / (d + 0.01);
                 sepY -= dy / (d + 0.01);
                 sepCount++;
