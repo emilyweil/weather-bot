@@ -424,6 +424,8 @@ const html = `
         }
         requestAnimationFrame(animate);
       }
+      animate();
+    })();
   </script>
 </body>
 </html>
