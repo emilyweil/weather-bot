@@ -32,7 +32,7 @@ const html = `
     .hero-eyebrow { font-size: 1.1rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
     .hero-sub { font-size: 1.2rem; line-height: 1.8; color: #ffffff; max-width: 500px; letter-spacing: 0.01em; font-weight: 300; }
-    .signup-section { border-top: 0.5px solid var(--white-faint); padding: 2.5rem 3rem; max-width: 600px; }
+    .signup-section { border-top: 0.5px solid var(--white-faint); padding: 2.5rem 3rem; max-width: 800px; }
     .signup-title { font-size: 1.2rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
     .form-row { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
     .form-input { flex: 1; background: rgba(255,255,255,0.08); border: 0.5px solid var(--white-faint); color: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 300; padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s ease; border-radius: 0; }
@@ -116,7 +116,7 @@ const html = `
 
       <div class="form-row">
         <span style="font-family:'DM Sans',sans-serif; font-size:1.15rem; font-weight:300; color:#ffffff; white-space:nowrap; display:flex; align-items:center;">Phone number</span>
-        <input class="form-input" type="tel" id="phone" placeholder="Format: +12125551234 or (212)555-1234" style="min-width:280px; width:100%;" />
+        <input class="form-input" type="tel" id="phone" placeholder="Format: +12125551234 or (212)555-1234" style="min-width:420px; width:100%;" />
         <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
       </div>
 
