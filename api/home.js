@@ -56,7 +56,7 @@ const html = `
     .policy-text h3 { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ffffff; font-weight: 400; margin: 1.25rem 0 0.5rem; }
     .policy-text p { margin-bottom: 0.75rem; color: #ffffff; }
     .form-message { font-size: 1rem; font-weight: 300; padding: 0.75rem 1rem; display: none; border-radius: 2px; }
-    .form-message.success { color: #ffffff; background: #7a9fcf; display: block; }
+    .form-message.success { color: #ffffff; background: #85b8a2; display: block; }
     .form-message.error { color: #ffffff; background: #fc8d9a; display: block; }
     .how-section { border-top: 0.5px solid var(--white-faint); padding: 5rem 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
     .how-item { display: flex; flex-direction: column; gap: 1rem; }
