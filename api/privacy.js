@@ -10,7 +10,7 @@ export default function handler(req, res) {
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { min-height: 100%; background: #4a6887; color: #ffffff; font-family: 'DM Sans', sans-serif; font-weight: 300; }
+    html, body { min-height: 100%; background: #586f85; color: #ffffff; font-family: 'DM Sans', sans-serif; font-weight: 300; } 
     .page { max-width: 700px; margin: 0 auto; padding: 4rem 2rem; }
     a.back { display: inline-block; margin-bottom: 3rem; font-size: 0.95rem; color: rgba(255,255,255,0.65); text-decoration: none; letter-spacing: 0.05em; }
     a.back:hover { color: #ffffff; }
