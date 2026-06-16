@@ -47,13 +47,12 @@ async function getWeather(location) {
     const rain = Math.round((f.pop || 0) * 100);
     if (i === 0) return `Now: ${temp}°F, ${desc}, ${rain}% chance of rain`;
     const forecastDate = new Date(f.dt * 1000);
-    const isToday = forecastDate.toDateString() === now.toDateString();
-    const dayLabel = isToday ? "Today" : "Tomorrow";
-    const time = forecastDate.toLocaleString("en-US", {
+    const label = forecastDate.toLocaleString("en-US", {
+      weekday: "short",
       hour: "numeric",
       hour12: true,
     });
-    return `${dayLabel} ${time}: ${temp}°F, ${desc}, ${rain}% chance of rain`;
+    return `${label}: ${temp}°F, ${desc}, ${rain}% chance of rain`;
   });
 
   return `📍 ${cityName} Forecast:\n${lines.join("\n")}`;
