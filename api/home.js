@@ -7,6 +7,7 @@ const html = `
   <title>Red Sky — Weather by Text</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="/api/earth" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -16,8 +17,9 @@ const html = `
       --black: #0a0a0a;
       --overlay: rgba(8,12,20,0.1);
     }
-    html { height: -webkit-fill-available; background: transparent; }
-    body { min-height: 100vh; min-height: -webkit-fill-available; color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+    html { height: -webkit-fill-available; background: #ffffff; }
+    body { min-height: 100vh; min-height: -webkit-fill-available; background: #ffffff; color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; opacity: 0; transition: opacity 0.4s ease; }
+    body.loaded { opacity: 1; }
     .bg-wrap { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; z-index: 0; overflow: hidden; }
     .bg-image { position: absolute; top: 0; left: 0; height: 100%; width: auto; min-width: 400%; object-fit: cover; animation: pan 600s linear infinite; filter: saturate(0.85) brightness(0.72); will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateZ(0); -webkit-transform: translateZ(0); }
     @keyframes pan { 0% { transform: translateX(0); } 50% { transform: translateX(-25%); } 100% { transform: translateX(0); } }
@@ -79,7 +81,7 @@ const html = `
 </head>
 <body>
   <div class="bg-wrap">
-    <img class="bg-image" src="/api/earth" alt="" aria-hidden="true" />
+    <img class="bg-image" src="/api/earth" alt="" aria-hidden="true" onload="document.body.classList.add('loaded')" />
     <div class="overlay"></div>
   </div>
   <div class="page">
@@ -172,7 +174,7 @@ const html = `
       <div class="how-item">
         <span class="how-num">01</span>
         <span class="how-title">Sign up</span>
-        <p class="how-desc">Enter your phone number above and agree to the terms. Check the optional box if you would like to receive forecasts when you text Red Sky.</p>
+        <p class="how-desc">Enter your phone number above and agree to the terms. Check the optional box if you would like to receive forecasts when you text the Red Sky phone number.</p>
       </div>
       <div class="how-item">
         <span class="how-num">02</span>
@@ -199,6 +201,18 @@ const html = `
       body.style.display = isOpen ? 'none' : 'block';
       icon.textContent = isOpen ? '+' : '-';
     }
+
+    // Safety fallback: if image is already cached, onload may not fire
+    (function() {
+      const bgImg = document.querySelector('.bg-image');
+      if (bgImg && bgImg.complete) {
+        document.body.classList.add('loaded');
+      }
+      // Absolute fallback in case something goes wrong
+      setTimeout(function() {
+        document.body.classList.add('loaded');
+      }, 2000);
+    })();
 
     function toggleSubmit() {
       const terms = document.getElementById('terms');
