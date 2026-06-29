@@ -67,10 +67,15 @@ async function getWeather(location) {
     throw new Error("Daily weather lookup limit reached. Please try again tomorrow.");
   }
 
-  // One Call API 3.0 - true hourly data, no interpolation needed
-  const res = await axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&exclude=minutely,daily,alerts`);
-  const hourly = res.data.hourly; // index 0 = now, 1 = +1hr, etc.
-  const tzOffsetSeconds = res.data.timezone_offset;
+  // One Call API 4.0 - current weather
+  const currentApiRes = await axios.get(`https://api.openweathermap.org/data/4.0/onecall/current?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`);
+  const currentData = currentApiRes.data;
+  const tzOffsetSeconds = currentData.timezone_offset;
+  const nowPoint = currentData.data[0];
+
+  // One Call API 4.0 - hourly timeline (next 4 hours)
+  const hourlyApiRes = await axios.get(`https://api.openweathermap.org/data/4.0/onecall/timeline/1hour?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&cnt=5`);
+  const hourly = hourlyApiRes.data.data; // index 0 = next hour, etc.
 
   function formatTime(unixSeconds) {
     const localMs = (unixSeconds + tzOffsetSeconds) * 1000;
@@ -81,19 +86,19 @@ async function getWeather(location) {
     });
   }
 
-  function formatLine(label, h) {
-    const temp = Math.round(h.temp);
-    const desc = h.weather[0].main; // shorter than .description
-    const rain = Math.round((h.pop || 0) * 100);
+  function formatLine(label, point) {
+    const temp = Math.round(point.temp);
+    const desc = point.weather[0].main;
+    const rain = Math.round((point.pop || 0) * 100);
     return `${label}: ${temp}°F, ${desc}, ${rain}% rain`;
   }
 
   const lines = [
-    formatLine("Now", hourly[0]),
+    formatLine("Now", nowPoint),
+    formatLine(formatTime(hourly[0].dt), hourly[0]),
     formatLine(formatTime(hourly[1].dt), hourly[1]),
     formatLine(formatTime(hourly[2].dt), hourly[2]),
     formatLine(formatTime(hourly[3].dt), hourly[3]),
-    formatLine(formatTime(hourly[4].dt), hourly[4]),
   ];
 
   return `📍 ${cityName}:\n${lines.join("\n")}`;
@@ -105,8 +110,12 @@ export default async function handler(req, res) {
   const incomingMsg = req.body?.Body?.trim();
   const sender = req.body?.From;
 
+  // Handle STOP
   if (incomingMsg?.toUpperCase() === "STOP") {
-    await supabase.from("subscribers").update({ opted_in: false }).eq("phone_number", sender);
+    await supabase
+      .from("subscribers")
+      .update({ opted_in: false })
+      .eq("phone_number", sender);
     await client.messages.create({
       from: process.env.TWILIO_SMS_NUMBER,
       to: sender,
@@ -115,8 +124,11 @@ export default async function handler(req, res) {
     return res.status(200).send("OK");
   }
 
+  // Handle START
   if (incomingMsg?.toUpperCase() === "START") {
-    await supabase.from("subscribers").upsert({ phone_number: sender, opted_in: true });
+    await supabase
+      .from("subscribers")
+      .upsert({ phone_number: sender, opted_in: true });
     await client.messages.create({
       from: process.env.TWILIO_SMS_NUMBER,
       to: sender,
@@ -125,6 +137,7 @@ export default async function handler(req, res) {
     return res.status(200).send("OK");
   }
 
+  // Handle HELP
   if (incomingMsg?.toUpperCase() === "HELP") {
     await client.messages.create({
       from: process.env.TWILIO_SMS_NUMBER,
@@ -134,6 +147,7 @@ export default async function handler(req, res) {
     return res.status(200).send("OK");
   }
 
+  // Check if sender is opted in
   const { data: subscriber } = await supabase
     .from("subscribers")
     .select("opted_in")
@@ -149,6 +163,7 @@ export default async function handler(req, res) {
     return res.status(200).send("OK");
   }
 
+  // Send weather
   let replyText;
   try {
     replyText = await getWeather(incomingMsg);
