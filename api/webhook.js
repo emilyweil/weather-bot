@@ -34,6 +34,7 @@ async function getWeather(location) {
   const current = currentRes.data;
   const nowTemp = Math.round(current.main.temp);
   const nowDesc = current.weather[0].description;
+  const tzOffsetSeconds = current.timezone; // seconds offset from UTC for this location
 
   // Get forecast list (3-hour intervals) to find +3hr and +6hr points
   const forecastRes = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&cnt=6`);
@@ -53,26 +54,28 @@ async function getWeather(location) {
 
   const plus3 = closestTo(target3);
   const plus6 = closestTo(target6);
-
-  // Use nearest forecast entry to "now" for rain probability on the "Now" line
   const nowPop = Math.round((closestTo(nowMs).pop || 0) * 100);
+
+  // Format a UTC timestamp as the LOCAL time at the queried location
+  function formatLocalTime(unixSeconds) {
+    const localMs = (unixSeconds + tzOffsetSeconds) * 1000;
+    const d = new Date(localMs);
+    return d.toLocaleString("en-US", {
+      weekday: "short",
+      hour: "numeric",
+      hour12: true,
+      timeZone: "UTC", // prevents double-applying server's own timezone
+    });
+  }
 
   function formatLine(label, temp, desc, pop) {
     return `${label}: ${temp}°F, ${desc}, ${pop}% chance of rain`;
   }
 
-  function formatTimeLabel(item) {
-    return new Date(item.dt * 1000).toLocaleString("en-US", {
-      weekday: "short",
-      hour: "numeric",
-      hour12: true,
-    });
-  }
-
   const lines = [
     formatLine("Now", nowTemp, nowDesc, nowPop),
-    formatLine(formatTimeLabel(plus3), Math.round(plus3.main.temp), plus3.weather[0].description, Math.round((plus3.pop || 0) * 100)),
-    formatLine(formatTimeLabel(plus6), Math.round(plus6.main.temp), plus6.weather[0].description, Math.round((plus6.pop || 0) * 100)),
+    formatLine(formatLocalTime(plus3.dt), Math.round(plus3.main.temp), plus3.weather[0].description, Math.round((plus3.pop || 0) * 100)),
+    formatLine(formatLocalTime(plus6.dt), Math.round(plus6.main.temp), plus6.weather[0].description, Math.round((plus6.pop || 0) * 100)),
   ];
 
   return `📍 ${cityName} Forecast:\n${lines.join("\n")}`;
