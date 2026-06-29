@@ -56,7 +56,7 @@ const html = `
     .policy-text h3 { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ffffff; font-weight: 400; margin: 1.25rem 0 0.5rem; }
     .policy-text p { margin-bottom: 0.75rem; color: #ffffff; }
     .form-message { font-size: 1rem; font-weight: 300; padding: 0.75rem 1rem; display: none; border-radius: 2px; }
-    .form-message.success { color: #ffffff; background: #85b8a2; display: block; }
+    .form-message.success { color: #ffffff; background: #7a9fcf; display: block; }
     .form-message.error { color: #ffffff; background: #fc8d9a; display: block; }
     .how-section { border-top: 0.5px solid var(--white-faint); padding: 5rem 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
     .how-item { display: flex; flex-direction: column; gap: 1rem; }
@@ -94,7 +94,7 @@ const html = `
     <section class="hero">
       <p class="hero-eyebrow">Instant weather &mdash; no app required</p>
       <h1>How's the weather?<br />Text to find out.</h1>
-      <p class="hero-sub">Sign up below and get a real forecast sent to your phone in seconds. Just text any city or zip code to get started.</p>
+      <p class="hero-sub">Sign up below, then text any city or zip code to get a real forecast sent to your phone in seconds.</p>
     </section>
 
     <section class="signup-section">
@@ -110,7 +110,7 @@ const html = `
       <div class="checkbox-row">
         <input type="checkbox" id="consent" />
         <label class="checkbox-label" for="consent">
-          <strong style="font-weight:300;">Optional:</strong> I would like to receive weather forecast text messages from Red Sky, a service of Studio Emily Weil LLC. This is completely optional and is not required to create an account. If you do not check this box, you will not receive any text messages. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+          <strong style="font-weight:300;">Optional:</strong> I would like to receive weather forecast text messages when I text any city or zip code to Red Sky, a service of Studio Emily Weil LLC. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
         </label>
       </div>
 
@@ -172,7 +172,7 @@ const html = `
       <div class="how-item">
         <span class="how-num">01</span>
         <span class="how-title">Sign up</span>
-        <p class="how-desc">Enter your phone number above and agree to the terms. Check the optional SMS box if you would like to receive forecasts by text.</p>
+        <p class="how-desc">Enter your phone number above and agree to the terms. Check the optional box if you would like to receive forecasts when you text the Red Sky phone number.</p>
       </div>
       <div class="how-item">
         <span class="how-num">02</span>
@@ -187,8 +187,7 @@ const html = `
     </section>
 
     <footer>
-      <p>&copy; 2026 Red Sky, a service of Studio Emily Weil LLC &mdash; Reply STOP to unsubscribe &mdash; Msg &amp; data rates may apply</p>
-      <p>SMS consent is not a condition of service. <a href="/api/privacy">Privacy Policy</a> &mdash; <a href="/api/terms">Terms</a></p>
+      <p>&copy; 2026 Red Sky, a service of Studio Emily Weil LLC</p>
     </footer>
   </div>
 
