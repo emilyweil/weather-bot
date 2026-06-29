@@ -44,7 +44,9 @@ const html = `
     .form-submit:hover { background: rgba(255,255,255,0.9); }
     .form-submit:disabled { background: rgba(255,255,255,0.25); color: rgba(0,0,0,0.4); cursor: not-allowed; }
     .checkbox-row { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
-    .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 18px; height: 18px; accent-color: #ffffff; cursor: pointer; border: none; outline: none; box-shadow: none; }
+    .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 18px; height: 18px; accent-color: #ffffff; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background: transparent; border: 2px solid #ffffff; border-radius: 3px; outline: none; box-shadow: none; }
+    .checkbox-row input[type="checkbox"]:checked { background: #ffffff; }
+    .checkbox-row input[type="checkbox"]:checked::after { content: '✓'; display: block; text-align: center; color: #0a0a0a; font-size: 13px; line-height: 16px; }
     .checkbox-label { font-size: 1.15rem; line-height: 1.7; color: #ffffff; font-weight: 300; }
     .checkbox-label a { color: #ffffff; text-decoration: underline; }
     .policy-block { margin-top: 1.5rem; border-top: 0.5px solid var(--white-faint); padding-top: 1.5rem; }
