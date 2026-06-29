@@ -44,7 +44,7 @@ const html = `
     .form-submit:hover { background: rgba(255,255,255,0.9); }
     .form-submit:disabled { background: rgba(255,255,255,0.25); color: rgba(0,0,0,0.4); cursor: not-allowed; }
     .checkbox-row { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; }
-    .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 18px; height: 18px; accent-color: #ffffff; cursor: pointer; }
+    .checkbox-row input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; width: 18px; height: 18px; accent-color: #ffffff; cursor: pointer; border: none; outline: none; box-shadow: none; }
     .checkbox-label { font-size: 1.15rem; line-height: 1.7; color: #ffffff; font-weight: 300; }
     .checkbox-label a { color: #ffffff; text-decoration: underline; }
     .policy-block { margin-top: 1.5rem; border-top: 0.5px solid var(--white-faint); padding-top: 1.5rem; }
@@ -96,7 +96,7 @@ const html = `
     <section class="hero">
       <p class="hero-eyebrow">Instant weather &mdash; no app required</p>
       <h1>How's the weather?<br />Text to find out.</h1>
-      <p class="hero-sub">Sign up below, then text any city or zip code to get a real forecast sent to your phone in seconds.</p>
+      <p class="hero-sub">Sign up below, then text any city or zip code to get a weather forecast sent to your phone.</p>
     </section>
 
     <section class="signup-section">
@@ -112,7 +112,7 @@ const html = `
       <div class="checkbox-row">
         <input type="checkbox" id="consent" />
         <label class="checkbox-label" for="consent">
-          <strong style="font-weight:300;">Optional:</strong> I would like to receive weather forecast text messages when I text any city or zip code to Red Sky, a service of Studio Emily Weil LLC. Message and data rates may apply. Reply STOP to cancel at any time. Reply HELP for help.
+          <strong style="font-weight:300;">Optional:</strong> I would like to receive weather forecast text messages when I text any city or zip code to Red Sky, a service of Studio Emily Weil LLC. Message and data rates may apply.
         </label>
       </div>
 
@@ -184,7 +184,7 @@ const html = `
       <div class="how-item">
         <span class="how-num">03</span>
         <span class="how-title">Get your forecast</span>
-        <p class="how-desc">Receive a real-time forecast within seconds. Reply STOP at any time to unsubscribe.</p>
+        <p class="how-desc">Receive a real-time forecast within seconds. Reply STOP to cancel at any time. Reply HELP for help.</p>
       </div>
     </section>
 
