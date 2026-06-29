@@ -174,7 +174,7 @@ const html = `
       <div class="how-item">
         <span class="how-num">01</span>
         <span class="how-title">Sign up</span>
-        <p class="how-desc">Enter your phone number above and agree to the terms. Check the optional box if you would like to receive forecasts when you text the Red Sky phone number.</p>
+        <p class="how-desc">Enter your phone number above and agree to the terms.</p>
       </div>
       <div class="how-item">
         <span class="how-num">02</span>
