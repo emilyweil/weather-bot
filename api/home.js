@@ -18,8 +18,8 @@ const html = `
       --overlay: rgba(8,12,20,0.1);
     }
     html { height: -webkit-fill-available; background: #ffffff; }
-    body { min-height: 100vh; min-height: -webkit-fill-available; background: #ffffff; color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; opacity: 0; transition: opacity 0.4s ease; }
-    body.loaded { opacity: 1; }
+    body { min-height: 100vh; min-height: -webkit-fill-available; background: #ffffff; color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; visibility: hidden; }
+    body.loaded { visibility: visible; }
     .bg-wrap { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; z-index: 0; overflow: hidden; }
     .bg-image { position: absolute; top: 0; left: 0; height: 100%; width: auto; min-width: 400%; object-fit: cover; animation: pan 600s linear infinite; filter: saturate(0.85) brightness(0.72); will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateZ(0); -webkit-transform: translateZ(0); }
     @keyframes pan { 0% { transform: translateX(0); } 50% { transform: translateX(-25%); } 100% { transform: translateX(0); } }
