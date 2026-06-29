@@ -74,7 +74,7 @@ async function getWeather(location) {
   const nowPoint = currentData.data[0];
 
   // One Call API 4.0 - hourly timeline (next 4 hours)
-  const hourlyApiRes = await axios.get(`https://api.openweathermap.org/data/4.0/onecall/timeline/1hour?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&cnt=5`);
+  const hourlyApiRes = await axios.get(`https://api.openweathermap.org/data/4.0/onecall/timeline/1h?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`);
   const hourly = hourlyApiRes.data.data; // index 0 = next hour, etc.
 
   function formatTime(unixSeconds) {
