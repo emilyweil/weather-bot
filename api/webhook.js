@@ -14,49 +14,70 @@ const supabase = createClient(
 async function getWeather(location) {
   const apiKey = process.env.OPENWEATHER_API_KEY;
 
-  // First geocode the location to get clean city name and coordinates
-  const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(location)}&limit=1&appid=${apiKey}`;
-  const zipUrl = `https://api.openweathermap.org/geo/1.0/zip?zip=${encodeURIComponent(location)},US&appid=${apiKey}`;
-
+  // Geocode the location
   let cityName, lat, lon;
-
   try {
-    // Try zip code first
-    const zipRes = await axios.get(zipUrl);
+    const zipRes = await axios.get(`https://api.openweathermap.org/geo/1.0/zip?zip=${encodeURIComponent(location)},US&appid=${apiKey}`);
     cityName = zipRes.data.name;
     lat = zipRes.data.lat;
     lon = zipRes.data.lon;
   } catch {
-    // Fall back to city name search
-    const geoRes = await axios.get(geoUrl);
+    const geoRes = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(location)}&limit=1&appid=${apiKey}`);
     if (!geoRes.data.length) throw new Error("Location not found");
     cityName = geoRes.data[0].name;
     lat = geoRes.data[0].lat;
     lon = geoRes.data[0].lon;
   }
 
-  // Get forecast using coordinates
-  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&cnt=3`;
-  const response = await axios.get(forecastUrl);
-  const forecasts = response.data.list;
+  // Get true current weather for "Now"
+  const currentRes = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`);
+  const current = currentRes.data;
+  const nowTemp = Math.round(current.main.temp);
+  const nowDesc = current.weather[0].description;
 
-  const now = new Date();
-  const lines = forecasts.map((f, i) => {
-    const temp = Math.round(f.main.temp);
-    const desc = f.weather[0].description;
-    const rain = Math.round((f.pop || 0) * 100);
-    if (i === 0) return `Now: ${temp}°F, ${desc}, ${rain}% chance of rain`;
-    const forecastDate = new Date(f.dt * 1000);
-    const label = forecastDate.toLocaleString("en-US", {
+  // Get forecast list (3-hour intervals) to find +3hr and +6hr points
+  const forecastRes = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&cnt=6`);
+  const list = forecastRes.data.list;
+
+  const nowMs = Date.now();
+  const target3 = nowMs + 3 * 60 * 60 * 1000;
+  const target6 = nowMs + 6 * 60 * 60 * 1000;
+
+  function closestTo(targetMs) {
+    return list.reduce((best, item) => {
+      const itemMs = item.dt * 1000;
+      const bestMs = best.dt * 1000;
+      return Math.abs(itemMs - targetMs) < Math.abs(bestMs - targetMs) ? item : best;
+    });
+  }
+
+  const plus3 = closestTo(target3);
+  const plus6 = closestTo(target6);
+
+  // Use nearest forecast entry to "now" for rain probability on the "Now" line
+  const nowPop = Math.round((closestTo(nowMs).pop || 0) * 100);
+
+  function formatLine(label, temp, desc, pop) {
+    return `${label}: ${temp}°F, ${desc}, ${pop}% chance of rain`;
+  }
+
+  function formatTimeLabel(item) {
+    return new Date(item.dt * 1000).toLocaleString("en-US", {
       weekday: "short",
       hour: "numeric",
       hour12: true,
     });
-    return `${label}: ${temp}°F, ${desc}, ${rain}% chance of rain`;
-  });
+  }
+
+  const lines = [
+    formatLine("Now", nowTemp, nowDesc, nowPop),
+    formatLine(formatTimeLabel(plus3), Math.round(plus3.main.temp), plus3.weather[0].description, Math.round((plus3.pop || 0) * 100)),
+    formatLine(formatTimeLabel(plus6), Math.round(plus6.main.temp), plus6.weather[0].description, Math.round((plus6.pop || 0) * 100)),
+  ];
 
   return `📍 ${cityName} Forecast:\n${lines.join("\n")}`;
 }
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).send("Method Not Allowed");
 
