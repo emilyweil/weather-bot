@@ -11,6 +11,7 @@ const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_KEY
 );
+
 async function getWeather(location) {
   const apiKey = process.env.OPENWEATHER_API_KEY;
 
@@ -29,53 +30,70 @@ async function getWeather(location) {
     lon = geoRes.data[0].lon;
   }
 
-  // Get true current weather for "Now"
+  // True current weather for "Now"
   const currentRes = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`);
   const current = currentRes.data;
   const nowTemp = Math.round(current.main.temp);
   const nowDesc = current.weather[0].description;
-  const tzOffsetSeconds = current.timezone; // seconds offset from UTC for this location
+  const tzOffsetSeconds = current.timezone;
 
-  // Get forecast list (3-hour intervals) to find +3hr and +6hr points
-  const forecastRes = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&cnt=6`);
+  // Forecast list, 3-hour blocks
+  const forecastRes = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&cnt=8`);
   const list = forecastRes.data.list;
 
   const nowMs = Date.now();
-  const target3 = nowMs + 3 * 60 * 60 * 1000;
-  const target6 = nowMs + 6 * 60 * 60 * 1000;
+  const target3Ms = nowMs + 3 * 60 * 60 * 1000;
+  const target6Ms = nowMs + 6 * 60 * 60 * 1000;
 
-  function closestTo(targetMs) {
-    return list.reduce((best, item) => {
+  // Find the two points surrounding a target time, then interpolate
+  function interpolate(targetMs) {
+    let before = null, after = null;
+    for (const item of list) {
       const itemMs = item.dt * 1000;
-      const bestMs = best.dt * 1000;
-      return Math.abs(itemMs - targetMs) < Math.abs(bestMs - targetMs) ? item : best;
-    });
+      if (itemMs <= targetMs) before = item;
+      if (itemMs >= targetMs && !after) after = item;
+    }
+    if (!before) before = list[0];
+    if (!after) after = list[list.length - 1];
+    if (before === after) {
+      return { temp: before.main.temp, pop: before.pop || 0, desc: before.weather[0].description };
+    }
+    const beforeMs = before.dt * 1000;
+    const afterMs = after.dt * 1000;
+    const ratio = (targetMs - beforeMs) / (afterMs - beforeMs);
+    const temp = before.main.temp + (after.main.temp - before.main.temp) * ratio;
+    const pop = (before.pop || 0) + ((after.pop || 0) - (before.pop || 0)) * ratio;
+    // Use whichever data point is closer in time for the description
+    const desc = ratio < 0.5 ? before.weather[0].description : after.weather[0].description;
+    return { temp, pop, desc };
   }
 
-  const plus3 = closestTo(target3);
-  const plus6 = closestTo(target6);
-  const nowPop = Math.round((closestTo(nowMs).pop || 0) * 100);
+  const at3 = interpolate(target3Ms);
+  const at6 = interpolate(target6Ms);
+  const nowPopSource = interpolate(nowMs);
 
-  // Format a UTC timestamp as the LOCAL time at the queried location
-  function formatLocalTime(unixSeconds) {
-    const localMs = (unixSeconds + tzOffsetSeconds) * 1000;
-    const d = new Date(localMs);
+  // Round the TARGET time to the nearest hour for the label (in local time)
+  function labelForTarget(targetMs) {
+    const localMs = targetMs + tzOffsetSeconds * 1000 - (new Date().getTimezoneOffset() * 0); 
+    const roundedHourMs = Math.round(targetMs / (60 * 60 * 1000)) * 60 * 60 * 1000;
+    const localRounded = roundedHourMs + tzOffsetSeconds * 1000;
+    const d = new Date(localRounded);
     return d.toLocaleString("en-US", {
       weekday: "short",
       hour: "numeric",
       hour12: true,
-      timeZone: "UTC", // prevents double-applying server's own timezone
+      timeZone: "UTC",
     });
   }
 
   function formatLine(label, temp, desc, pop) {
-    return `${label}: ${temp}°F, ${desc}, ${pop}% chance of rain`;
+    return `${label}: ${Math.round(temp)}°F, ${desc}, ${Math.round(pop * 100)}% chance of rain`;
   }
 
   const lines = [
-    formatLine("Now", nowTemp, nowDesc, nowPop),
-    formatLine(formatLocalTime(plus3.dt), Math.round(plus3.main.temp), plus3.weather[0].description, Math.round((plus3.pop || 0) * 100)),
-    formatLine(formatLocalTime(plus6.dt), Math.round(plus6.main.temp), plus6.weather[0].description, Math.round((plus6.pop || 0) * 100)),
+    formatLine("Now", nowTemp, nowDesc, nowPopSource.pop),
+    formatLine(labelForTarget(target3Ms), at3.temp, at3.desc, at3.pop),
+    formatLine(labelForTarget(target6Ms), at6.temp, at6.desc, at6.pop),
   ];
 
   return `📍 ${cityName} Forecast:\n${lines.join("\n")}`;
