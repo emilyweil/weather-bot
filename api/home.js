@@ -87,37 +87,26 @@ const html = `
   <div class="page">
     <nav>
       <span class="nav-logo">Red Sky</span>
-      <div class="nav-links">
-        <a href="/api/privacy">Privacy</a>
-        <a href="/api/terms">Terms</a>
-      </div>
     </nav>
 
     <section class="hero">
       <p class="hero-eyebrow">Instant weather &mdash; no app required</p>
       <h1>How's the weather?<br />Text to find out.</h1>
-      <p class="hero-sub">Sign up below, then text any city or zip code to get a weather forecast sent to your phone.</p>
+      <p class="hero-sub">Sign up below, then text any city or zip code to get a free weather forecast sent to your phone.</p>
     </section>
 
     <section class="signup-section">
       <p class="signup-title">Sign up</p>
 
       <div class="checkbox-row">
-        <input type="checkbox" id="terms" onchange="toggleSubmit()" />
-        <label class="checkbox-label" for="terms">
-          <strong style="font-weight:300;">Required:</strong> I agree to the <a href="/api/terms">Terms of Service</a> and <a href="/api/privacy">Privacy Policy</a>.
-        </label>
-      </div>
-
-      <div class="checkbox-row">
-        <input type="checkbox" id="consent" />
-        <label class="checkbox-label" for="consent">
-          <strong style="font-weight:300;">Optional:</strong> I would like to receive weather forecast text messages when I text any city or zip code to Red Sky, a service of Studio Emily Weil LLC. Message and data rates may apply.
+        <input type="checkbox" id="combined" onchange="toggleSubmit()" />
+        <label class="checkbox-label" for="combined">
+          I agree to the <a href="/api/terms">Terms of Service</a> and <a href="/api/privacy">Privacy Policy</a>, and would like to receive weather forecast text messages when I text any city or zip code to Red Sky. Message and data rates may apply.
         </label>
       </div>
 
       <div class="form-row">
-        <span style="font-family:'DM Sans',sans-serif; font-size:1.15rem; font-weight:300; color:#ffffff; white-space:nowrap; display:flex; align-items:center;">Phone number</span>
+        <span style="font-family:'DM Sans',sans-serif; font-size:1.15rem; font-weight:300; color:#ffffff; white-space:nowrap; display:flex; align-items:center;">Your phone number</span>
         <input class="form-input" type="tel" id="phone" placeholder="Format: +12125551234 or (212) 555-1234" style="min-width:420px; width:100%;" />
         <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
       </div>
@@ -131,16 +120,16 @@ const html = `
           </button>
           <div class="accordion-body" id="body-privacy" style="display:none;">
             <div class="policy-text">
-              <p>Last updated: May 2026</p>
+              <p>Last updated: July 1, 2026</p>
               <p>Red Sky is a service of Studio Emily Weil LLC.</p>
               <h3>What We Collect</h3>
               <p>When you sign up or text this service, we collect only your phone number and the location queries you send, solely to provide you with weather forecasts.</p>
               <h3>How We Use Your Data</h3>
               <p>Your phone number and location queries are used only to return weather forecast responses. We do not store, sell, or share your data or mobile number with any third parties.</p>
               <h3>Message Frequency</h3>
-              <p>You will receive one message per request you send. This service only sends messages in direct response to your inbound texts.</p>
+              <p>You will receive one message per request you send. This service only sends messages in direct response to your texts.</p>
               <h3>Message and Data Rates</h3>
-              <p>Message and data rates may apply. Please check with your mobile carrier for details.</p>
+              <p>Message and data rates may apply.</p>
               <h3>Opt Out</h3>
               <p>Reply STOP to any message to unsubscribe at any time. Reply START to resubscribe. Reply HELP for assistance.</p>
             </div>
@@ -152,10 +141,10 @@ const html = `
           </button>
           <div class="accordion-body" id="body-terms" style="display:none;">
             <div class="policy-text">
-              <p>Last updated: May 2026</p>
+              <p>Last updated: July 1, 2026</p>
               <p>Red Sky is a service of Studio Emily Weil LLC.</p>
               <h3>Service Description</h3>
-              <p>Red Sky provides automated weather forecasts via SMS in response to user-initiated text messages. To use the service, text a city name or zip code to +1 989 357 8490.</p>
+              <p>Red Sky provides free automated weather forecasts via SMS in response to user-initiated text messages. To use the service, text a city name or zip code to <span style="color:#ffffff;">(989) 357-8490</span>.</p>
               <h3>Usage</h3>
               <p>This service is provided for personal, non-commercial use. By signing up you agree to receive automated weather forecast responses only if you have opted in to SMS messages.</p>
               <h3>Opt Out</h3>
@@ -163,7 +152,7 @@ const html = `
               <h3>SMS Consent</h3>
               <p>SMS consent is not a condition of service. You may create an account without opting in to receive text messages.</p>
               <h3>Disclaimer</h3>
-              <p>Weather forecasts are provided by OpenWeatherMap for informational purposes only. We are not responsible for any decisions made based on the weather information provided.</p>
+              <p>Weather forecasts are provided for informational purposes only. We are not responsible for any decisions made based on the weather information provided.</p>
             </div>
           </div>
         </div>
@@ -171,6 +160,9 @@ const html = `
     </section>
 
     <section class="how-section" id="how">
+      <div class="how-item" style="grid-column: 1 / -1; margin-bottom: 1rem;">
+        <span style="font-size:1.2rem; letter-spacing:0.22em; text-transform:uppercase; color:#ffffff; font-weight:300; font-family:'DM Sans',sans-serif;">How it works</span>
+      </div>
       <div class="how-item">
         <span class="how-num">01</span>
         <span class="how-title">Sign up</span>
@@ -179,12 +171,12 @@ const html = `
       <div class="how-item">
         <span class="how-num">02</span>
         <span class="how-title">Send a location</span>
-        <p class="how-desc">Text any city name or zip code to +1 989 357 8490 from your registered phone to get a forecast.</p>
+        <p class="how-desc">Text any city name or zip code to <span style="color:#ffffff;">(989) 357-8490</span> from your registered phone to get a forecast.</p>
       </div>
       <div class="how-item">
         <span class="how-num">03</span>
         <span class="how-title">Get your forecast</span>
-        <p class="how-desc">Receive a real-time forecast within seconds. Reply STOP to cancel at any time. Reply HELP for help.</p>
+        <p class="how-desc">Receive a real-time forecast within seconds. Reply STOP to cancel at any time. HELP for help.</p>
       </div>
     </section>
 
@@ -215,14 +207,14 @@ const html = `
     })();
 
     function toggleSubmit() {
-      const terms = document.getElementById('terms');
+      const combined = document.getElementById('combined');
       const btn = document.getElementById('submitBtn');
-      btn.disabled = !terms.checked;
+      btn.disabled = !combined.checked;
     }
 
     async function handleSignup() {
       const phone = document.getElementById('phone').value.trim();
-      const consent = document.getElementById('consent').checked;
+      const consent = document.getElementById('combined').checked;
       const msg = document.getElementById('formMessage');
       const btn = document.getElementById('submitBtn');
       if (!phone) {
@@ -242,16 +234,10 @@ const html = `
         });
         const data = await res.json();
         if (res.ok) {
-          if (data.message === 'subscribed') {
-            msg.className = 'form-message success';
-            msg.textContent = 'You are subscribed! Text any city name or zip code to +1 989 357 8490 to get your forecast.';
-          } else {
-            msg.className = 'form-message success';
-            msg.textContent = 'You are registered. Check the SMS opt-in box and resubmit to receive weather forecasts by text.';
-          }
+          msg.className = 'form-message success';
+          msg.textContent = 'You are subscribed! Text any city name or zip code to (989) 357-8490 to get your forecast.';
           document.getElementById('phone').value = '';
-          document.getElementById('consent').checked = false;
-          document.getElementById('terms').checked = false;
+          document.getElementById('combined').checked = false;
           btn.disabled = true;
         } else {
           throw new Error(data.error || 'Something went wrong.');
