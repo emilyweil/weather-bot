@@ -33,20 +33,6 @@ async function checkAndIncrementUsage() {
   return true;
 }
 
-function weatherDesc(code) {
-  if (code === 0) return "Clear";
-  if (code === 1) return "Mostly Clear";
-  if (code === 2) return "Partly Cloudy";
-  if (code === 3) return "Cloudy";
-  if ([45, 48].includes(code)) return "Foggy";
-  if ([51, 53, 55].includes(code)) return "Drizzle";
-  if ([61, 63, 65].includes(code)) return "Rain";
-  if ([71, 73, 75].includes(code)) return "Snow";
-  if ([80, 81, 82].includes(code)) return "Showers";
-  if ([95, 96, 99].includes(code)) return "Thunderstorm";
-  return "Mixed";
-}
-
 async function getWeather(location) {
   const geoKey = process.env.OPENWEATHER_API_KEY;
   let cityName, lat, lon;
@@ -75,30 +61,20 @@ async function getWeather(location) {
   );
 
   const data = weatherRes.data;
-  const timezone = data.timezone;
   const hourly = data.hourly;
 
-  // current.time is local time e.g. "2026-07-01T13:30"
-  // hourly.time entries are local time e.g. "2026-07-01T13:00"
-  // Truncate current time to the hour to find matching index
-  const currentTimeStr = data.current.time; // e.g. "2026-07-01T13:30"
-  const currentHourStr = currentTimeStr.substring(0, 13) + ":00"; // "2026-07-01T13:00"
-
-  // Find index in hourly array matching current hour
+  // Use current.time (local time string) to find matching hourly index
+  const currentTimeStr = data.current.time;
+  const currentHourStr = currentTimeStr.substring(0, 13) + ":00";
   let startIdx = hourly.time.findIndex(t => t === currentHourStr);
-  if (startIdx === -1) startIdx = 0; // fallback
+  if (startIdx === -1) startIdx = 0;
 
-  // Current conditions from the current endpoint
   const current = data.current;
   const nowTemp = Math.round(current.temperature_2m);
-  const nowDesc = weatherDesc(current.weather_code);
   const nowRain = Math.round(current.precipitation_probability || 0);
 
   function formatTime(isoString) {
-    // isoString is local time like "2026-07-01T14:00"
-    // We need to display it in the location's timezone
-    // Since it's already local time, parse it as UTC offset for display
-    const [datePart, timePart] = isoString.split('T');
+    const [, timePart] = isoString.split('T');
     const [hour] = timePart.split(':');
     const h = parseInt(hour);
     const ampm = h >= 12 ? 'PM' : 'AM';
@@ -108,13 +84,12 @@ async function getWeather(location) {
 
   function formatLine(i) {
     const temp = Math.round(hourly.temperature_2m[i]);
-    const desc = weatherDesc(hourly.weather_code[i]);
     const rain = Math.round(hourly.precipitation_probability[i] || 0);
-    return `${formatTime(hourly.time[i])}: ${temp}°F, ${desc}, ${rain}% rain`;
+    return `${formatTime(hourly.time[i])}: ${temp}°, 💧${rain}%`;
   }
 
   const lines = [
-    `Now: ${nowTemp}°F, ${nowDesc}, ${nowRain}% rain`,
+    `Now: ${nowTemp}°, 💧${nowRain}%`,
     formatLine(startIdx + 1),
     formatLine(startIdx + 2),
     formatLine(startIdx + 3),
