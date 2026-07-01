@@ -16,7 +16,6 @@ const DAILY_LIMIT = 950;
 
 async function checkAndIncrementUsage() {
   const today = new Date().toISOString().split('T')[0];
-
   const { data: existing } = await supabase
     .from('api_usage')
     .select('call_count')
@@ -24,37 +23,43 @@ async function checkAndIncrementUsage() {
     .single();
 
   const currentCount = existing ? existing.call_count : 0;
-
-  if (currentCount >= DAILY_LIMIT) {
-    return false;
-  }
+  if (currentCount >= DAILY_LIMIT) return false;
 
   if (existing) {
-    await supabase
-      .from('api_usage')
-      .update({ call_count: currentCount + 1 })
-      .eq('date', today);
+    await supabase.from('api_usage').update({ call_count: currentCount + 1 }).eq('date', today);
   } else {
-    await supabase
-      .from('api_usage')
-      .insert({ date: today, call_count: 1 });
+    await supabase.from('api_usage').insert({ date: today, call_count: 1 });
   }
-
   return true;
 }
 
-async function getWeather(location) {
-  const apiKey = process.env.OPENWEATHER_API_KEY;
+// Map Open-Meteo weather codes to short descriptions
+function weatherDesc(code) {
+  if (code === 0) return "Clear";
+  if (code === 1) return "Mostly Clear";
+  if (code === 2) return "Partly Cloudy";
+  if (code === 3) return "Cloudy";
+  if ([45, 48].includes(code)) return "Foggy";
+  if ([51, 53, 55].includes(code)) return "Drizzle";
+  if ([61, 63, 65].includes(code)) return "Rain";
+  if ([71, 73, 75].includes(code)) return "Snow";
+  if ([80, 81, 82].includes(code)) return "Showers";
+  if ([95, 96, 99].includes(code)) return "Thunderstorm";
+  return "Mixed";
+}
 
-  // Geocode the location
-  let cityName, lat, lon;
+async function getWeather(location) {
+  // Geocode the location using OpenWeatherMap's free geocoding
+  const geoKey = process.env.OPENWEATHER_API_KEY;
+  let cityName, lat, lon, timezone;
+
   try {
-    const zipRes = await axios.get(`https://api.openweathermap.org/geo/1.0/zip?zip=${encodeURIComponent(location)},US&appid=${apiKey}`);
+    const zipRes = await axios.get(`https://api.openweathermap.org/geo/1.0/zip?zip=${encodeURIComponent(location)},US&appid=${geoKey}`);
     cityName = zipRes.data.name;
     lat = zipRes.data.lat;
     lon = zipRes.data.lon;
   } catch {
-    const geoRes = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(location)}&limit=1&appid=${apiKey}`);
+    const geoRes = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(location)}&limit=1&appid=${geoKey}`);
     if (!geoRes.data.length) throw new Error("Location not found");
     cityName = geoRes.data[0].name;
     lat = geoRes.data[0].lat;
@@ -63,57 +68,42 @@ async function getWeather(location) {
 
   // Check daily usage cap
   const allowed = await checkAndIncrementUsage();
-  if (!allowed) {
-    throw new Error("Daily weather lookup limit reached. Please try again tomorrow.");
-  }
+  if (!allowed) throw new Error("Daily weather lookup limit reached. Please try again tomorrow.");
 
-  // Current weather for "Now"
-  const currentRes = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`);
-  const current = currentRes.data;
-  const nowTemp = Math.round(current.main.temp);
-  const nowDesc = current.weather[0].main;
-  const tzOffsetSeconds = current.timezone;
+  // Fetch from Open-Meteo — no API key needed
+  const weatherRes = await axios.get(
+    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,precipitation_probability&hourly=temperature_2m,weather_code,precipitation_probability&temperature_unit=fahrenheit&timezone=auto&forecast_hours=5`
+  );
 
-  // 3-hour forecast — get enough entries to find +3hr and +6hr slots
-  const forecastRes = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&cnt=4`);
-  const list = forecastRes.data.list;
+  const data = weatherRes.data;
+  timezone = data.timezone;
 
-  const nowMs = Date.now();
-  const target3Ms = nowMs + 3 * 60 * 60 * 1000;
-  const target6Ms = nowMs + 6 * 60 * 60 * 1000;
+  const current = data.current;
+  const nowTemp = Math.round(current.temperature_2m);
+  const nowDesc = weatherDesc(current.weather_code);
+  const nowRain = Math.round(current.precipitation_probability || 0);
 
-  // Find closest data point to each target time
-  function closest(targetMs) {
-    return list.reduce((best, item) => {
-      const itemMs = item.dt * 1000;
-      const bestMs = best.dt * 1000;
-      return Math.abs(itemMs - targetMs) < Math.abs(bestMs - targetMs) ? item : best;
-    });
-  }
+  // The hourly array starts at the current hour — indices 1-4 give +1hr through +4hr
+  const hourly = data.hourly;
 
-  const plus3 = closest(target3Ms);
-  const plus6 = closest(target6Ms);
-
-  // Format time using location's local timezone offset
-  function formatTime(unixSeconds) {
-    const localMs = (unixSeconds + tzOffsetSeconds) * 1000;
-    return new Date(localMs).toLocaleString("en-US", {
-      weekday: "short",
+  function formatTime(isoString) {
+    return new Date(isoString).toLocaleString("en-US", {
       hour: "numeric",
       hour12: true,
-      timeZone: "UTC",
+      timeZone: timezone,
     });
   }
 
-  function formatLine(label, temp, desc, pop) {
-    const rain = Math.round((pop || 0) * 100);
-    return `${label}: ${temp}°F, ${desc}, ${rain}% rain`;
+  function formatLine(label, temp, code, rain) {
+    return `${label}: ${Math.round(temp)}°F, ${weatherDesc(code)}, ${Math.round(rain)}% rain`;
   }
 
   const lines = [
-    formatLine("Now", nowTemp, nowDesc, 0),
-    formatLine(formatTime(plus3.dt), Math.round(plus3.main.temp), plus3.weather[0].main, plus3.pop),
-    formatLine(formatTime(plus6.dt), Math.round(plus6.main.temp), plus6.weather[0].main, plus6.pop),
+    `Now: ${nowTemp}°F, ${nowDesc}, ${nowRain}% rain`,
+    formatLine(formatTime(hourly.time[1]), hourly.temperature_2m[1], hourly.weather_code[1], hourly.precipitation_probability[1]),
+    formatLine(formatTime(hourly.time[2]), hourly.temperature_2m[2], hourly.weather_code[2], hourly.precipitation_probability[2]),
+    formatLine(formatTime(hourly.time[3]), hourly.temperature_2m[3], hourly.weather_code[3], hourly.precipitation_probability[3]),
+    formatLine(formatTime(hourly.time[4]), hourly.temperature_2m[4], hourly.weather_code[4], hourly.precipitation_probability[4]),
   ];
 
   return `📍 ${cityName}:\n${lines.join("\n")}`;
@@ -126,10 +116,7 @@ export default async function handler(req, res) {
   const sender = req.body?.From;
 
   if (incomingMsg?.toUpperCase() === "STOP") {
-    await supabase
-      .from("subscribers")
-      .update({ opted_in: false })
-      .eq("phone_number", sender);
+    await supabase.from("subscribers").update({ opted_in: false }).eq("phone_number", sender);
     await client.messages.create({
       from: process.env.TWILIO_SMS_NUMBER,
       to: sender,
@@ -139,9 +126,7 @@ export default async function handler(req, res) {
   }
 
   if (incomingMsg?.toUpperCase() === "START") {
-    await supabase
-      .from("subscribers")
-      .upsert({ phone_number: sender, opted_in: true });
+    await supabase.from("subscribers").upsert({ phone_number: sender, opted_in: true });
     await client.messages.create({
       from: process.env.TWILIO_SMS_NUMBER,
       to: sender,
