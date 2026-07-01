@@ -33,7 +33,6 @@ async function checkAndIncrementUsage() {
   return true;
 }
 
-// Map Open-Meteo weather codes to short descriptions
 function weatherDesc(code) {
   if (code === 0) return "Clear";
   if (code === 1) return "Mostly Clear";
@@ -49,9 +48,8 @@ function weatherDesc(code) {
 }
 
 async function getWeather(location) {
-  // Geocode the location using OpenWeatherMap's free geocoding
   const geoKey = process.env.OPENWEATHER_API_KEY;
-  let cityName, lat, lon, timezone;
+  let cityName, lat, lon;
 
   try {
     const zipRes = await axios.get(`https://api.openweathermap.org/geo/1.0/zip?zip=${encodeURIComponent(location)},US&appid=${geoKey}`);
@@ -66,27 +64,48 @@ async function getWeather(location) {
     lon = geoRes.data[0].lon;
   }
 
-  // Check daily usage cap
   const allowed = await checkAndIncrementUsage();
   if (!allowed) throw new Error("Daily weather lookup limit reached. Please try again tomorrow.");
 
-  // Fetch from Open-Meteo — no API key needed
+  // Fetch current + hourly from Open-Meteo
   const weatherRes = await axios.get(
-    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,precipitation_probability&hourly=temperature_2m,weather_code,precipitation_probability&temperature_unit=fahrenheit&timezone=auto&forecast_hours=5`
+    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+    `&current=temperature_2m,weather_code,precipitation_probability` +
+    `&hourly=temperature_2m,weather_code,precipitation_probability` +
+    `&temperature_unit=fahrenheit&timezone=auto&forecast_days=2`
   );
 
   const data = weatherRes.data;
-  timezone = data.timezone;
+  const timezone = data.timezone;
 
+  // Current conditions
   const current = data.current;
   const nowTemp = Math.round(current.temperature_2m);
   const nowDesc = weatherDesc(current.weather_code);
   const nowRain = Math.round(current.precipitation_probability || 0);
 
-  // The hourly array starts at the current hour — indices 1-4 give +1hr through +4hr
+  // Find the index in the hourly array that matches the current hour
+  const nowMs = Date.now();
+  const times = data.hourly.time; // array of ISO strings like "2026-07-01T13:00"
+
+  // Find the first hourly slot at or after now
+  let startIdx = 0;
+  for (let i = 0; i < times.length; i++) {
+    const slotMs = new Date(times[i] + ":00.000Z").getTime() - (data.timezone_utc_offset_seconds * 1000);
+    // Compare using UTC: Open-Meteo times are local, convert to UTC for comparison
+    const slotLocal = new Date(times[i]);
+    const slotUtcMs = slotLocal.getTime() - (data.utc_offset_seconds * 1000);
+    if (slotUtcMs >= nowMs - 30 * 60 * 1000) { // within 30 min before now
+      startIdx = i;
+      break;
+    }
+  }
+
   const hourly = data.hourly;
 
   function formatTime(isoString) {
+    // Open-Meteo returns local time strings like "2026-07-01T14:00"
+    // Parse as local time in the location's timezone
     return new Date(isoString).toLocaleString("en-US", {
       hour: "numeric",
       hour12: true,
@@ -94,16 +113,16 @@ async function getWeather(location) {
     });
   }
 
-  function formatLine(label, temp, code, rain) {
-    return `${label}: ${Math.round(temp)}°F, ${weatherDesc(code)}, ${Math.round(rain)}% rain`;
+  function formatLine(i) {
+    return `${formatTime(hourly.time[i])}: ${Math.round(hourly.temperature_2m[i])}°F, ${weatherDesc(hourly.weather_code[i])}, ${Math.round(hourly.precipitation_probability[i] || 0)}% rain`;
   }
 
   const lines = [
     `Now: ${nowTemp}°F, ${nowDesc}, ${nowRain}% rain`,
-    formatLine(formatTime(hourly.time[1]), hourly.temperature_2m[1], hourly.weather_code[1], hourly.precipitation_probability[1]),
-    formatLine(formatTime(hourly.time[2]), hourly.temperature_2m[2], hourly.weather_code[2], hourly.precipitation_probability[2]),
-    formatLine(formatTime(hourly.time[3]), hourly.temperature_2m[3], hourly.weather_code[3], hourly.precipitation_probability[3]),
-    formatLine(formatTime(hourly.time[4]), hourly.temperature_2m[4], hourly.weather_code[4], hourly.precipitation_probability[4]),
+    formatLine(startIdx + 1),
+    formatLine(startIdx + 2),
+    formatLine(startIdx + 3),
+    formatLine(startIdx + 4),
   ];
 
   return `📍 ${cityName}:\n${lines.join("\n")}`;
