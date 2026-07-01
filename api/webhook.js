@@ -67,7 +67,6 @@ async function getWeather(location) {
   const allowed = await checkAndIncrementUsage();
   if (!allowed) throw new Error("Daily weather lookup limit reached. Please try again tomorrow.");
 
-  // Fetch current + hourly from Open-Meteo
   const weatherRes = await axios.get(
     `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
     `&current=temperature_2m,weather_code,precipitation_probability` +
@@ -77,44 +76,41 @@ async function getWeather(location) {
 
   const data = weatherRes.data;
   const timezone = data.timezone;
+  const hourly = data.hourly;
 
-  // Current conditions
+  // current.time is local time e.g. "2026-07-01T13:30"
+  // hourly.time entries are local time e.g. "2026-07-01T13:00"
+  // Truncate current time to the hour to find matching index
+  const currentTimeStr = data.current.time; // e.g. "2026-07-01T13:30"
+  const currentHourStr = currentTimeStr.substring(0, 13) + ":00"; // "2026-07-01T13:00"
+
+  // Find index in hourly array matching current hour
+  let startIdx = hourly.time.findIndex(t => t === currentHourStr);
+  if (startIdx === -1) startIdx = 0; // fallback
+
+  // Current conditions from the current endpoint
   const current = data.current;
   const nowTemp = Math.round(current.temperature_2m);
   const nowDesc = weatherDesc(current.weather_code);
   const nowRain = Math.round(current.precipitation_probability || 0);
 
-  // Find the index in the hourly array that matches the current hour
-  const nowMs = Date.now();
-  const times = data.hourly.time; // array of ISO strings like "2026-07-01T13:00"
-
-  // Find the first hourly slot at or after now
-  let startIdx = 0;
-  for (let i = 0; i < times.length; i++) {
-    const slotMs = new Date(times[i] + ":00.000Z").getTime() - (data.timezone_utc_offset_seconds * 1000);
-    // Compare using UTC: Open-Meteo times are local, convert to UTC for comparison
-    const slotLocal = new Date(times[i]);
-    const slotUtcMs = slotLocal.getTime() - (data.utc_offset_seconds * 1000);
-    if (slotUtcMs >= nowMs - 30 * 60 * 1000) { // within 30 min before now
-      startIdx = i;
-      break;
-    }
-  }
-
-  const hourly = data.hourly;
-
   function formatTime(isoString) {
-    // Open-Meteo returns local time strings like "2026-07-01T14:00"
-    // Parse as local time in the location's timezone
-    return new Date(isoString).toLocaleString("en-US", {
-      hour: "numeric",
-      hour12: true,
-      timeZone: timezone,
-    });
+    // isoString is local time like "2026-07-01T14:00"
+    // We need to display it in the location's timezone
+    // Since it's already local time, parse it as UTC offset for display
+    const [datePart, timePart] = isoString.split('T');
+    const [hour] = timePart.split(':');
+    const h = parseInt(hour);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const h12 = h % 12 || 12;
+    return `${h12} ${ampm}`;
   }
 
   function formatLine(i) {
-    return `${formatTime(hourly.time[i])}: ${Math.round(hourly.temperature_2m[i])}°F, ${weatherDesc(hourly.weather_code[i])}, ${Math.round(hourly.precipitation_probability[i] || 0)}% rain`;
+    const temp = Math.round(hourly.temperature_2m[i]);
+    const desc = weatherDesc(hourly.weather_code[i]);
+    const rain = Math.round(hourly.precipitation_probability[i] || 0);
+    return `${formatTime(hourly.time[i])}: ${temp}°F, ${desc}, ${rain}% rain`;
   }
 
   const lines = [
