@@ -12,7 +12,7 @@ const supabase = createClient(
   process.env.SUPABASE_KEY
 );
 
-const DAILY_LIMIT = 950; // safety buffer under OpenWeatherMap's 1000/day free cap
+const DAILY_LIMIT = 950;
 
 async function checkAndIncrementUsage() {
   const today = new Date().toISOString().split('T')[0];
@@ -61,44 +61,59 @@ async function getWeather(location) {
     lon = geoRes.data[0].lon;
   }
 
-  // Check daily usage cap before calling the paid endpoint
+  // Check daily usage cap
   const allowed = await checkAndIncrementUsage();
   if (!allowed) {
     throw new Error("Daily weather lookup limit reached. Please try again tomorrow.");
   }
 
-  // One Call API 4.0 - current weather
-  const currentApiRes = await axios.get(`https://api.openweathermap.org/data/4.0/onecall/current?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`);
-  const currentData = currentApiRes.data;
-  const tzOffsetSeconds = currentData.timezone_offset;
-  const nowPoint = currentData.data[0];
+  // Current weather for "Now"
+  const currentRes = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`);
+  const current = currentRes.data;
+  const nowTemp = Math.round(current.main.temp);
+  const nowDesc = current.weather[0].main;
+  const tzOffsetSeconds = current.timezone;
 
-  // One Call API 4.0 - hourly timeline (next 4 hours)
-  const hourlyApiRes = await axios.get(`https://api.openweathermap.org/data/4.0/onecall/timeline/1h?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`);
-  const hourly = hourlyApiRes.data.data; // index 0 = next hour, etc.
+  // 3-hour forecast — get enough entries to find +3hr and +6hr slots
+  const forecastRes = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&cnt=4`);
+  const list = forecastRes.data.list;
 
+  const nowMs = Date.now();
+  const target3Ms = nowMs + 3 * 60 * 60 * 1000;
+  const target6Ms = nowMs + 6 * 60 * 60 * 1000;
+
+  // Find closest data point to each target time
+  function closest(targetMs) {
+    return list.reduce((best, item) => {
+      const itemMs = item.dt * 1000;
+      const bestMs = best.dt * 1000;
+      return Math.abs(itemMs - targetMs) < Math.abs(bestMs - targetMs) ? item : best;
+    });
+  }
+
+  const plus3 = closest(target3Ms);
+  const plus6 = closest(target6Ms);
+
+  // Format time using location's local timezone offset
   function formatTime(unixSeconds) {
     const localMs = (unixSeconds + tzOffsetSeconds) * 1000;
     return new Date(localMs).toLocaleString("en-US", {
+      weekday: "short",
       hour: "numeric",
       hour12: true,
       timeZone: "UTC",
     });
   }
 
-  function formatLine(label, point) {
-    const temp = Math.round(point.temp);
-    const desc = point.weather[0].main;
-    const rain = Math.round((point.pop || 0) * 100);
+  function formatLine(label, temp, desc, pop) {
+    const rain = Math.round((pop || 0) * 100);
     return `${label}: ${temp}°F, ${desc}, ${rain}% rain`;
   }
 
   const lines = [
-    formatLine("Now", nowPoint),
-    formatLine(formatTime(hourly[0].dt), hourly[0]),
-    formatLine(formatTime(hourly[1].dt), hourly[1]),
-    formatLine(formatTime(hourly[2].dt), hourly[2]),
-    formatLine(formatTime(hourly[3].dt), hourly[3]),
+    formatLine("Now", nowTemp, nowDesc, 0),
+    formatLine(formatTime(plus3.dt), Math.round(plus3.main.temp), plus3.weather[0].main, plus3.pop),
+    formatLine(formatTime(plus6.dt), Math.round(plus6.main.temp), plus6.weather[0].main, plus6.pop),
   ];
 
   return `📍 ${cityName}:\n${lines.join("\n")}`;
@@ -110,7 +125,6 @@ export default async function handler(req, res) {
   const incomingMsg = req.body?.Body?.trim();
   const sender = req.body?.From;
 
-  // Handle STOP
   if (incomingMsg?.toUpperCase() === "STOP") {
     await supabase
       .from("subscribers")
@@ -124,7 +138,6 @@ export default async function handler(req, res) {
     return res.status(200).send("OK");
   }
 
-  // Handle START
   if (incomingMsg?.toUpperCase() === "START") {
     await supabase
       .from("subscribers")
@@ -137,7 +150,6 @@ export default async function handler(req, res) {
     return res.status(200).send("OK");
   }
 
-  // Handle HELP
   if (incomingMsg?.toUpperCase() === "HELP") {
     await client.messages.create({
       from: process.env.TWILIO_SMS_NUMBER,
@@ -147,7 +159,6 @@ export default async function handler(req, res) {
     return res.status(200).send("OK");
   }
 
-  // Check if sender is opted in
   const { data: subscriber } = await supabase
     .from("subscribers")
     .select("opted_in")
@@ -163,7 +174,6 @@ export default async function handler(req, res) {
     return res.status(200).send("OK");
   }
 
-  // Send weather
   let replyText;
   try {
     replyText = await getWeather(incomingMsg);
