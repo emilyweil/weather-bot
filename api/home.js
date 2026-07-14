@@ -94,7 +94,7 @@ const html = `
 
     <section class="hero">
       <p class="hero-eyebrow">Instant weather &mdash; no app required</p>
-      <h1>How's the weather?<br />Text to find out.</h1>
+      <h1><span style="white-space:nowrap;">How's the weather?</span><br />Text to find out.</h1>
       <p class="hero-sub">Sign up below, then text any city or zip code to get a free weather forecast sent to your phone.</p>
     </section>
 
@@ -109,7 +109,7 @@ const html = `
       </div>
 
       <div class="form-row">
-        <span style="font-family:'DM Sans',sans-serif; font-size:1.15rem; font-weight:300; color:#ffffff; white-space:nowrap; display:flex; align-items:center;">Your phone number</span>
+        <span style="font-family:'DM Sans',sans-serif; font-size:1.15rem; font-weight:300; color:#ffffff; white-space:nowrap; display:flex; align-items:center;">Your phone number:</span>
         <input class="form-input" type="tel" id="phone" placeholder="Format: +12125551234 or (212) 555-1234" style="min-width:420px; width:100%;" />
         <button class="form-submit" id="submitBtn" disabled onclick="handleSignup()">Submit</button>
       </div>
@@ -147,7 +147,7 @@ const html = `
               <p>Last updated: July 1, 2026</p>
               <p>Red Sky is a service of Studio Emily Weil LLC.</p>
               <h3>Service Description</h3>
-              <p>Red Sky provides free automated weather forecasts via SMS in response to user-initiated text messages. To use the service, text a city name or zip code to <span style="color:#ffffff;">(989) 357-8490</span>.</p>
+              <p>Red Sky provides free automated weather forecasts via SMS in response to user-initiated text messages. To use the service, text a city name or zip code to <a href="tel:+19893578490" style="color:#ffffff !important; -webkit-text-fill-color:#ffffff; text-decoration:none;">(989) 357-8490</a>.</p>
               <h3>Usage</h3>
               <p>This service is provided for personal, non-commercial use. By signing up you agree to receive automated weather forecast responses only if you have opted in to SMS messages.</p>
               <h3>Opt Out</h3>
@@ -174,7 +174,7 @@ const html = `
       <div class="how-item">
         <span class="how-num">02</span>
         <span class="how-title">Send a location</span>
-        <p class="how-desc">Text any city name or zip code to <span style="color:#ffffff;">(989) 357-8490</span> from your registered phone to get a forecast.</p>
+        <p class="how-desc">Text any city name or zip code to <a href="tel:+19893578490" style="color:#ffffff !important; -webkit-text-fill-color:#ffffff; text-decoration:none;">(989) 357-8490</a> from your registered phone to get a forecast.</p>
       </div>
       <div class="how-item">
         <span class="how-num">03</span>
