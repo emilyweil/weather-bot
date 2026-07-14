@@ -33,7 +33,7 @@ const html = `
     .nav-links a:hover { color: #ffffff; }
     .hero { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 2.5rem 3rem 1rem 3rem; max-width: 900px; }
     .hero-eyebrow { font-size: 1.1rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
-    .hero h1 { font-weight: 200; font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1.0; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
+    .hero h1 { font-weight: 200; font-size: clamp(2.8rem, 8vw, 7rem); line-height: 1.05; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 2rem; }
     .hero-sub { font-size: 1.2rem; line-height: 1.8; color: #ffffff; max-width: 500px; letter-spacing: 0.01em; font-weight: 300; }
     .signup-section { border-top: 0.5px solid var(--white-faint); padding: 2.5rem 3rem; max-width: 800px; }
     .signup-title { font-size: 1.2rem; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; margin-bottom: 2rem; font-weight: 300; }
@@ -94,7 +94,7 @@ const html = `
 
     <section class="hero">
       <p class="hero-eyebrow">Instant weather &mdash; no app required</p>
-      <h1><span style="white-space:nowrap;">How's the weather?</span><br />Text to find out.</h1>
+      <h1>How's the weather?<br />Text to find out.</h1>
       <p class="hero-sub">Sign up below, then text any city or zip code to get a free weather forecast sent to your phone.</p>
     </section>
 
