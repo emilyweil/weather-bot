@@ -4,6 +4,7 @@ const html = `
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no" />
   <title>Red Sky — Weather by Text</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
@@ -55,6 +56,8 @@ const html = `
     .accordion-icon { font-size: 1rem; font-style: normal; line-height: 1; color: #ffffff; font-family: monospace; }
     .accordion-body { margin-top: 0.75rem; margin-bottom: 0.5rem; }
     .policy-text { font-size: 1rem; line-height: 1.8; color: #ffffff; font-weight: 300; }
+    .how-desc span, .how-desc a { color: #ffffff !important; -webkit-text-fill-color: #ffffff; text-decoration: none; }
+    .policy-text span { color: #ffffff !important; -webkit-text-fill-color: #ffffff; }
     .policy-text h3 { font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ffffff; font-weight: 400; margin: 1.25rem 0 0.5rem; }
     .policy-text p { margin-bottom: 0.75rem; color: #ffffff; }
     .form-message { font-size: 1rem; font-weight: 300; padding: 0.75rem 1rem; display: none; border-radius: 2px; }
