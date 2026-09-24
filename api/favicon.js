@@ -3,7 +3,7 @@ import { join } from "path";
 
 export default function handler(req, res) {
   try {
-    const filePath = join(process.cwd(), "RedSkyFlavicon1.png");
+    const filePath = join(process.cwd(), "RedSkyFavicon1.png");
     const img = readFileSync(filePath);
     res.setHeader("Content-Type", "image/png");
     res.setHeader("Cache-Control", "public, max-age=86400");
